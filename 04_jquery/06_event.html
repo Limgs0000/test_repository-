@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event</title>
+  <script src="js/jquery-3.6.0.js"></script>
+</head>
+<body>
+  <h1>Event</h1>
+  <h2>mouseover | mouseout</h2>
+  <h2>mouseenter | mouseleave</h2>
+  <div class="outer">
+    <div class="inner"></div>
+  </div>
+  <style>
+  .outer {
+    width: 200px;
+    height: 200px;
+    background-color: orange;
+    padding: 50px;
+    margin: 20px auto;
+  }
+  .inner {
+    width: 100%;
+    height: 100%;
+    background-color: tomato;
+  }
+  .border {
+    border: 2px solid #000;
+  }
+  </style>
+  <script>
+  /**
+   * mouseover | mouseout 자식요소 접근시에도 이벤트핸들링함.
+   */ 
+  // $(".outer")
+  //   .mouseover(e => {
+  //     console.log("mouseover", e.target);
+  //   })
+  //   .mouseout(e => {
+  //     console.log("mouseout", e.target);
+  //   });
+  
+  /**
+   * mouseenter | mouseleave 자식요소 접근시에는 이벤트핸들링하지 않음.
+   */ 
+  // $(".outer")
+  //   .mouseenter(e => {
+  //     console.log("mouseenter", e.target);
+  //   })
+  //   .mouseleave(e => {
+  //     console.log("mouseleave", e.target);
+  //   });
+
+
+  /**
+   * hover : mouseenter + mouseleave
+   * 
+   * addClass 특정클래스 추가
+   * removeClass 특정클래스 제거
+   * toggleClass 특정클래스 추가/제거
+   * 
+   */ 
+  $(".outer")
+    .hover(
+      e => {
+        // mouseenter용
+        console.log('mouseenter', e.target);
+        // $(e.target).addClass("border");
+        $(e.target).toggleClass("border");
+      },
+      e => {
+        // mouseleave용
+        console.log('mousleave', e.target);
+        // $(e.target).removeClass("border");
+        $(e.target).toggleClass("border");
+      }
+    );
+  </script>
+
+  <h2>key event</h2>
+  <form action="javascript:alert($(memo).val()); document.memoFrm.reset();" name="memoFrm">
+    <fieldset>
+      <legend>Memo</legend>
+      <p><span id="textLen">0</span>/<span id="maxLen"></span></p>
+      <textarea name="memo" id="memo" cols="30" rows="10"></textarea>
+      <button type="submit">저장</button>
+    </fieldset>
+  </form>
+  <script>
+  const MEMO_MAX_LEN = 30;
+  $(maxLen).text(MEMO_MAX_LEN);
+
+  /**
+   * event.preventDefault();
+   * event처리를 중지. submit처리 되지 않음.
+   * return false; 와 동일하다.
+   */ 
+  $(document.memoFrm)
+    .submit(e => {
+      if($(memo).val().length == 0 || $(memo).val().length > MEMO_MAX_LEN)
+        e.preventDefault();
+    })
+    .on("reset", e => {
+      $(textLen).text(0);
+    });
+    
+
+  /**
+   * keydown
+   * keypress
+   * keyup
+   */ 
+  $(memo).keyup(e => {
+    // console.log($(memo).val());
+    const $textLen = $(textLen);
+    const len = $(memo).val().length;
+    $textLen
+      .html(len)
+      .css("color", len > MEMO_MAX_LEN ? "red" : "black");
+  });
+  </script>
+  
+  <h2>on | off</h2>
+  <button id="btn1">실행</button>
+  <script>
+  // $(btn1).click(e => {});
+  // btn2.addEventListener('click', e => {});
+  $(btn1).on("click", e => {
+    console.log("클릭하셨습니다.");
+
+    // 이벤트핸들러 제거 off
+    $(e.target).off("click");
+  });
+  </script>
+
+  <div class="wrap">
+    <h2>안녕</h2>
+  </div>
+  <style>
+  .wrap {
+    border: 2px solid gray;
+    margin: 5px auto;
+  }
+  </style>
+  <script>
+  // 부모요소에서 자식이벤트를 핸들링 : bubbling
+  // 부모요소.on(이벤트, 이벤트발생객체 선택자, 핸들러)
+  $(".wrap").on("click", "h2", e => {
+    // console.log(e.target);
+    $(".wrap").append("<h2>안녕</h2>");
+  });
+
+  // const foo = e => {
+  //   // 자식요소로 맨 마지막에 추가. html태그처리
+  //   const $h2 = $("<h2>안녕</h2>"); // 새 h2태그객체를 감싼 jquery객체(아직 dom에 추가되지 않았음)
+  //   $h2.on('click', foo);
+  //   $(".wrap").append($h2);
+  // };
+  // $(".wrap h2").on('click', foo);
+  </script>
+
+  <h2>trigger</h2>
+  <h2 id="cnt" style="text-align:center; color: red;">0</h2>
+  <button id="btn2">실행</button>
+  <script>
+  $(btn2).click(e => {
+    // #cnt 의 click event handler를 호출
+    $(cnt).trigger('click');
+  });
+
+  (() => {
+    let n = 0;
+    $(cnt).click(e => {
+      $(e.target).html(++n);
+    });
+  })();
+  </script>
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

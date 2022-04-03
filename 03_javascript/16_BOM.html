@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOM</title>
+</head>
+<body>
+  <h1>BOM</h1>
+  <h2>Browser Object Model</h2>
+  <button onclick="test1();">navigator</button>
+  <button onclick="test2();">location</button>
+  <button onclick="test3();">history</button>
+  <button onclick="test4();">screen</button>
+  <button onclick="test5();">popup</button>
+
+  <script>
+  const test5 = () => {
+    const width = 300;
+    const height = 300;
+    const x = (screen.availWidth - width) / 2 + screen.availLeft;
+    const y = (screen.availHeight - height) / 2 + screen.availTop;
+    console.log(x, y);
+    open("", "", `width=${width}, height=${height}, left=${x}, top=${y}`);
+  };
+  /**
+   * screen
+   * 브라우져의 viewport가 아닌 monitor에 대한 정보
+   */ 
+  const test4 = () => {
+    console.log(screen);
+  };
+
+  /**
+   * history
+   *  브라우져 방문기록 정보
+   */ 
+  const test3 = () => {
+    console.log(history);
+    // history.forward();
+    // history.back();
+    // history.go(-1);// 뒤로가기(back)
+    // history.go(0);//새로고침
+    // history.go(1);//앞으로가기(forward)
+  };
+
+  /**
+   * location
+   * 현재창의 주소표시줄과 관련된 정보관리
+   */ 
+  const test2 = () => {
+    console.log(location);
+    // location.href = "https://naver.com" // 페이지이동
+    // location.reload(); // 페이지 새로고침
+  };
+
+  /**
+   * navigator
+   *  브라우져에 대한 정보를 가진 객체
+   */ 
+  const test1 = () => {
+    console.log(navigator);
+  };
+  </script>
+  
+</body>
+</html>

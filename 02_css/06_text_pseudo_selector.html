@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Pseudo Selector</title>
+</head>
+<body>
+  <h1>Text Pseudo Selector</h1>
+  <!-- div.wrapper>(p>lorem)*5 -->
+  <div class="wrapper">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio aspernatur dolore praesentium minus accusantium pariatur dolor unde animi est? Laudantium quos quae sed non earum quisquam natus dignissimos, alias maiores.</p>
+    <p>Assumenda ex quia maxime corporis suscipit voluptates. Expedita repellat, tenetur itaque dolorem fuga, quasi eum modi ipsam asperiores culpa dolor quod rem numquam explicabo. Ipsa optio aliquid sed eos libero.</p>
+    <p>Vitae dolorum a fuga tenetur similique. Ducimus a aut officiis odit nesciunt, ab veritatis. Accusamus suscipit numquam consequuntur distinctio excepturi tenetur vitae a molestias quod amet esse, facere odio eum.</p>
+    <p>Sapiente quis obcaecati, fugit iusto aperiam tempora esse praesentium non totam veritatis, ab reiciendis laborum asperiores ut eaque rerum culpa sequi neque, ducimus velit! Molestias facere repellendus quaerat tempora illum?</p>
+    <p>Nisi autem perspiciatis eos quos, quam expedita perferendis blanditiis ea modi minima. Laborum, tempore aut suscipit consequuntur nisi similique aliquam dolorum quam corrupti odit deleniti, ex quas voluptate quia assumenda.</p>
+  </div>
+  <style>
+  .wrapper p::first-letter {
+    font-size: 2em;
+  }
+
+  .wrapper {
+    counter-reset: cnt;
+  }
+
+  .wrapper p::before {
+    content: counter(cnt)". ";
+    counter-increment: cnt;
+  }
+
+  .wrapper p::after {
+    content: '❤';
+  }
+
+  .wrapper p::selection {
+    background-color: aqua;
+    color: #fff;
+  }
+
+  </style>
+
+  
+</body>
+</html>

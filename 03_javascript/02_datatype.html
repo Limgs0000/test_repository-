@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datatype</title>
+  <script>
+  // 좋은 위치 1
+  </script>
+</head>
+<body>
+  <h1>Datatype</h1>
+  <input type="button" value="실행1" onclick="test1();">
+  <input type="button" value="실행2" onclick="test2();">
+  <script>
+  /**
+   * var (함수scope)
+   * 
+   * ---------------------------
+   * ECMA2015(ES6)
+   * let (블럭scope) 변수
+   * 
+   * const (블럭scope) 상수
+   */ 
+  function test2(){
+    var a = 100;
+    var a = 200;
+    console.log(a);
+
+    let b = 50;
+    // let b = 100; // Uncaught SyntaxError: Identifier 'b' has already been declared
+
+    const c = 100;
+    // c = 300; // Uncaught TypeError: Assignment to constant variable.
+  }
+
+
+
+  // 한줄 주석
+  /*
+    여러줄 주석
+  */
+  function test1(){
+    // 변수 선언시 자료형을 명시하지 않는다. 
+    // 대입되는 값에 의해서 자료형이 결정된다.
+    // 변수 선언 키워드를 사용 : var let const
+    var a;
+    console.log(a); // undefined
+    a = 100;
+    console.log(a, typeof(a)); // 100 "number"
+    a = "안녕";
+    console.log(a, typeof(a)); // 안녕 string
+
+    // number
+    var n = 100;
+
+    // string
+    var str = "javascript"; // "" '' 감싸야 한다.
+
+    // boolean
+    var bool = true; 
+    console.log(bool, typeof(bool)); // true "boolean"
+    
+    // array
+    var arr = [1, 2, 3, 4, 5];
+    console.log(arr, typeof(arr)); // [1, 2, 3, 4, 5] "object"
+
+    // object
+    var user = {
+      id : "honggd",
+      age : 35,
+      hobby : ["야구", "당구", "족구"],
+      family : {
+        father : "hongdd",
+        mother : "goss"
+      }
+    };
+    console.log(user, typeof(user));
+
+    // function
+    var foo = function(){
+      console.log("foooooooooooooooooooooooooooooooooooooo!!!");
+    };
+    console.log(foo, typeof(foo));
+    foo();
+
+    // undefined : 값은 지정되지 않은 변수타입
+    var temp;
+    console.log(temp, typeof(temp)); // undefined "undefined"
+  }
+
+  </script>
+
+  
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+  <script>
+  // 좋은 위치 2 : 모든 html요소가 DOM으로 등록된 이후
+  </script>
+</body>
+</html>

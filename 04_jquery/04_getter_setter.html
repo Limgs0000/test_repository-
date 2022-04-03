@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getter | Setter</title>
+  <script src="js/jquery-3.6.0.js"></script>
+</head>
+<body>
+  <h1>Getter | Setter</h1>
+  <p class="foo" style="color:red;">hello world1</p>
+  <p class="foo" style="color:blue;">hello world2</p>
+  <button id="btn1">css</button>
+  <button id="btn2">text</button>
+  <script>
+  /**
+   * @실습문제 : .foo의 모든 텍스트를 첫번째 .foo의 텍스트로 통일하세요
+   */ 
+  $(btn2).click(e => {
+    const $foo = $(".foo"); // jquery 선택자연산은 비용이 높으므로, 중복을 제거하면 좋다.
+    
+    // getter
+    const text = $foo.first().text();
+    console.log(text);
+
+    // setter
+    $foo.text(text);
+  });
+
+  /**
+   * getter : 첫번째요소의 값을 리턴
+   * setter : 모든 요소에 대해서 적용. 동일한 jquery객체를 리턴(method chaining)
+   */ 
+  $(btn1).click(e => {
+    const $foo = $(".foo");
+
+    // getter
+    console.log($foo.css("color")); // rgb(255, 0, 0)
+
+    // setter
+    $foo
+      .css("background-color", "lightgray")
+      .css("text-decoration", "underline");
+  });
+  </script>
+
+  <div class="wrapper">
+    <img src="../sample/image/flower1.PNG" alt="">
+    <img src="../sample/image/flower2.PNG" alt="">
+  </div>
+  <style>
+  .wrapper img {
+    width: 300px;
+    height: 200px;
+    margin: 10px;
+  }
+  </style>
+  <button id="btn3">attr</button>
+  <script>
+  /**
+   * attr : 태그객체에 inline으로 작성된 속성을 get/set하는 메소드
+   * - getter : 지정한 속성이 명시되어 있지않으면 undefined를 리턴
+   * - setter 
+   */ 
+  $(btn3).click(e => {
+    const $imgs = $(".wrapper img");
+    console.log($imgs);
+
+    // getter : 첫번째 요소에 대해 처리
+    console.log($imgs.attr("src"));
+    console.log($imgs.attr("title"));
+
+    // setter : 모든 요소에 대해 처리
+    // $imgs.attr("src", "../sample/image/river1.PNG");
+    $imgs.attr("src", (index, value) => {
+      console.log(index, value);
+      // setting할 값을 리턴
+      return `../sample/image/river${index + 1}.PNG`;
+    });
+  });
+  </script>
+
+
+
+
+
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

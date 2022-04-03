@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Object Array</title>
+</head>
+<body>
+  <h1>Object Array</h1>
+  <button onclick="test1();">객체배열생성</button>
+  <script>
+  const test1 = () => {
+    const pets = [];
+    pets.push({
+      name: '구리구리',
+      breed: '푸들',
+      weight: 3,
+      age: 10,
+      color: ["white"]
+    });
+    pets.push({
+      name: '둘리',
+      breed: '말티즈',
+      weight: 2.5,
+      age: 8,
+      color: ["white"]
+    });
+    pets.push({
+      name: '사랑이',
+      breed: '코카스파니엘',
+      weight: 13,
+      age: 5,
+      color: ["white", "brown"]
+    });
+
+    console.log(pets);
+
+    for(let i in pets){
+      // 동적으로 속성추가
+      // 1. bind
+      // const bark = function() {
+      //   console.log(this); 
+      //   return this.weight > 10 ? '멍멍' : '왈왈';
+      // };
+      // pets[i].bark = bark.bind(pets[i]); // bark함수의 this를 pets[i]객체로 hard binding
+      
+      // 2. closure
+      pets[i].bark = function() {
+        console.log(pets[i]);
+        return pets[i].weight > 10 ? '멍멍' : '왈왈';
+      };
+
+      // console.log(`${pets[i].name} - ${pets[i].bark()}`);
+      printPetInfo(pets[i]);
+    }
+    
+  };
+
+  /**
+   * @실습문제 : alert를 통해 애완동물 정보 출력
+   * 이름 : ...
+   * 견종 : ...
+   * 몸무게 : 3kg
+   * 나이 : 3살
+   * 털색깔 : white, brown
+   */
+//   const printPetInfo = (pet) => {
+//     alert(`이름: ${pet.name}
+// 견종: ${pet.breed}
+// 몸무게: ${pet.weight}kg
+// 나이: ${pet.age}살
+// 털색깔: ${pet.color}
+// 짖는소리: ${pet.bark()}`);
+//   }; 
+    const printPetInfo = ({name:petname, breed, weight, age, color, bark}) => {1
+      alert(`이름: ${petname}
+  견종: ${breed}
+  몸무게: ${weight}kg
+  나이: ${age}살
+  털색깔: ${color}
+  짖는소리: ${bark()}`);
+    };
+  </script>
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

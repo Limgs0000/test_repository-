@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Array</title>
+</head>
+<body>
+  <h1>Array</h1>
+  <button onclick="test1();">test1</button>
+  <button onclick="test2();">test2</button>
+  <button onclick="test3();">test3</button>
+  <script>
+  /**
+   * 진짜배열 : Array를 상속
+   * 유사배열 : Array가 아닌 다른 객체를 상속
+   */ 
+  function test3(){
+    const arr = [1, 2, 3];
+    const buttonArr = document.querySelectorAll("button");
+    const buttons = Array.from(buttonArr); // 유사배열 -> 진짜배열
+
+    console.log(arr);
+    console.log(buttons);
+
+    console.log(arr.join(), typeof(arr.join()));
+    console.log(buttons.join()); // buttons.join is not a function
+
+    // for(let i in arr)
+    //   console.log(arr[i]);
+    
+    // 유사배열은 for..in문사용시 객체로 처리된다. 속성명(key)가 변수에 할당된다.
+    for(let i in buttons){
+      console.log(i);
+      console.log(buttons[i]);
+    }
+
+  }
+
+  function test2(){
+    let arr1 = ['a', 'b', 'c'];
+    let arr2 = new Array("홍길동", "안녕");
+    // console.log(arr1);
+    // console.log(arr2);
+
+    // 전개연산자 spread operator(ES6)
+    let arr3 = new Array(...arr1, ...arr2);  // new Array('a', 'b', 'c')
+    console.log(arr3); // [['a', 'b', 'c']] --> ['a', 'b', 'c']
+
+  }
+
+
+  let arr1;
+  /**
+   * 배열 
+   * - 타입제한 없음
+   * - 크기제한 없음.
+   */
+  function test1(){
+    arr1 = [];
+    let arr2 = new Array();
+    let arr3 = new Array(3); // 크기지정
+
+    arr1[0] = 1;
+    arr1[1] = 'abc';
+    arr1[2] = true;
+    arr1[3] = [12, 34, 56];
+
+
+    console.log(arr1);
+    console.log(arr2);
+    console.log(arr3);
+
+    // for(let i = 0; i < arr1.length; i++){
+    //   console.log(arr1[i]);
+    // }
+
+    // for..in문 (배열, 객체 대상으로 순회)
+    for(let idx in arr1){
+      console.log(`arr1[${idx}] : ${arr1[idx]}`);
+    }
+
+
+  }
+  </script>
+
+  <h2>Array Method</h2>
+  <button onclick="test10();">버튼 순서변경</button>
+  <div class="wrapper" style="border: 1px solid gray; padding:5px; margin: 5px 0;">
+    <button onclick="test4();">indexOf</button>
+    <button onclick="test5();">concat</button>
+    <button onclick="test6();">join</button>
+    <button onclick="test7();">sort</button>
+    <button onclick="test8();">@실습문제:sort</button>
+    <button onclick="test9();">push | pop | unshift | shift</button>
+    <button onclick="test11()">slice</button>
+    <button onclick="test12()">splice</button>
+    <button onclick="test13()">forEach</button>
+    <button onclick="test14()">map</button>
+    <button onclick="test15()">reduce</button>
+  </div>
+  <script>
+  /**
+   * 
+   */ 
+  function test15(){
+    const arr = [1, 2, 3, 4, 5];
+    const result = arr.reduce(function(sum, elem, index){
+      console.log(sum, elem, index);
+      return sum + elem;
+    }, 0);
+    console.log(`result = ${result}`);
+
+    // map
+    const squares = arr.reduce(function(newArr, elem, index){
+      console.log(newArr, elem, index);
+      newArr.push(elem * elem);
+      return newArr;
+    }, []);
+
+    console.log(squares);
+
+    // filter : 요소중에서 홀수만 추가
+    const odds = arr.reduce(function(odds, e){
+      if(e % 2 != 0) odds.push(e);
+      return odds;
+    }, [])
+    console.log(odds);
+
+    const odds2 = arr.filter(function(elem){
+      return elem % 2 != 0;
+    });
+    console.log(odds2); 
+
+  }
+
+  function test14(){
+    const arr = [1, 2, 3]; // => [1, 4, 9]
+    const squares = arr.map(function(elem, index){
+      console.log(elem, index);
+      return elem * elem;
+    });
+    console.log(squares);
+    console.log(arr);
+
+    const names = ['james', 'matt', 'brad', 'kein'];
+    const NAMES = names.map(function(name, i){
+      return name.toUpperCase();
+    })
+    console.log(names);
+    console.log(NAMES);
+  }
+
+  /**
+   * forEach(callbackFunction(element, index){})
+   */ 
+  function test13(){
+    const arr = ['a', 'b', 'c'];
+    arr.forEach(function(elem, index){
+      console.log(elem, index);
+    });
+
+    // .wrapper하위의 button태그 내용을 출력(forEach)
+    const buttons = document.querySelectorAll(".wrapper button");
+    buttons.forEach(function(element, index){
+      console.log(index, element.textContent);
+    });
+  }
+
+  /**
+   * splice(startIndex, deleteCount, newItem1, newItem2,...)
+   * - startIndex: 시작인덱스
+   * - deleteCount: 제거할 요소카운트
+   * - newItem1,... : 추가할 요소
+   */ 
+  function test12(){
+    const arr = ['a', 'b', 'c', 'd', 'e'];
+    // console.log(arr.splice(2)); // ['c', 'd', 'e'] 2번지이후 모든 요소제거. 제거된 요소를 배열 리턴
+    // console.log(arr.splice(2, 1)); // ['c']
+    console.log(arr.splice(2, 1, 'x', 'y', 'z'));
+    console.log(arr);
+
+    const langs = ['java', 'oracle', 'servlet/jsp', 'spring'];
+    // html요소가 있다면, html대신 html5, css3, js6를 추가
+    // html요소가 없으면, html5, css3, js6를 마지막에 추가
+    const newItems = ['html5', 'css3', 'js6'];
+    if(langs.indexOf('html') > -1){
+      langs.splice(langs.indexOf('html'), 1, ...newItems);
+    }
+    else {
+      langs.splice(langs.length, 0, ...newItems);
+    }
+
+    console.log(langs);
+
+  }
+
+  function test11(){
+    const arr = [1, 2, 3, 4, 5];
+    console.log(arr.slice(1, 4)); // [2, 3, 4]
+    console.log(arr);
+  }
+
+  function test10(){
+      const parent = document.querySelector(".wrapper");
+      const _buttons = document.querySelectorAll(".wrapper button");
+      const buttons = Array.from(_buttons); // 진짜배열로 변경
+      while(buttons.length)
+        parent.append(buttons.pop(), " "); // 공백 텍스트노드도 함께 추가
+  }
+  
+  /**
+   * 요소추가/제거
+   * - 배열 맨마지막에 요소추가/제거 push/pop
+   * - 배열 맨처음에 요소추가/제거 unshift/shift
+   */ 
+  function test9(){
+    let arr = [];
+    // arr[0] = 'a';
+    // arr[1] = 'b';
+    // arr[2] = 'c';
+    arr.push('a');
+    arr.push('b');
+    arr.push('c');
+    console.log(arr);
+
+    // let removed = arr.pop();
+    // console.log(`제거된 요소 : ${removed}`);
+    // while(arr.length){
+    //   console.log(arr.pop());
+    // }
+
+    arr.unshift('x');
+    arr.unshift('y');
+    arr.unshift('z');
+
+    console.log(arr.shift());
+
+    const rainbow = ['빨','주','노','초','파','남','보'];
+    /*
+      '빨','주','노','초','파','남','보'
+      '주','노','초','파','남','보','빨'
+      '노','초','파','남','보','빨','주'
+      '초','파','남','보','빨','주','노'
+      '파','남','보','빨','주','노','초'
+      '남','보','빨','주','노','초','파'
+      '보','빨','주','노','초','파','남'
+    */
+    for(let i = 0; i < rainbow.length; i++){
+      console.log(rainbow);
+      rainbow.push(rainbow.shift());
+    }
+
+    const numbers = [];
+    for(let i = 0; i < 100; i++)
+      numbers.push(i + 1);
+
+    console.log(numbers);
+
+    const other = [];
+    while(1){
+      other.push(numbers.pop());
+      if(!numbers.length) break;
+    }
+    console.log(other);
+
+  }
+  
+  /**
+   * 사용자가 좋아하는 영화를 입력 받고, 이를 배열에 담아 오름차순 정렬후 출력!
+   * 입력예: 쇼생크탈출, 까모메식당, 본아이덴티티, 그린나이트, 진격의 거인
+   */
+  function test8(){
+    const str = prompt(`좋아하는 영화를 입력하세요.(입력예: 대부, 벗)`);
+    if(str == null || str == "") return;
+
+    const arr = str.split(", ");
+    arr.sort();
+    console.log(arr);
+    alert(arr);
+  }
+
+  function test7(){
+    const arr1 = [3, 2, 5, 4, 1];
+    // console.log(arr1.sort()); // 기본 오름차순 정렬
+    // console.log(arr1);
+
+    // 내림차순 : 정렬callback함수를 전달
+    const comp = function(a, b){
+      return b - a; // 음수 | 0 | 양수 리턴
+    };
+    arr1.sort(comp);
+    console.log(arr1);
+
+    // 문자열 
+    const arr2 = ["홍길동", "이길동", "고길동", "서길동"];
+    // arr2.sort();
+    arr2.sort(function(a, b){
+      if(a > b) return -1;
+      else if(a == b) return 0;
+      else return 1;
+    });
+    console.log(arr2); // ['고길동', '서길동', '이길동', '홍길동']
+  }
+
+  function test6(){
+    const arr = ["홍", "길", "동"];
+    console.log(arr.join("_"), typeof(arr.join("_"))); // 구분자로 요소를 연결해 문자열로 리턴
+  }
+
+  function test5(){
+    const arr1 = ['a', 'b', 'c'];
+    const arr2 = [1, 2, 3];
+    // const arr3 = arr1.concat(arr2);
+    const arr3 = [...arr1, ...arr2];
+    console.log(arr3); // ['a', 'b', 'c', 1, 2, 3]
+    console.log(arr1); // ['a', 'b', 'c']
+  }
+
+  function test4(){
+    const arr = ['apple', 'melon', 'pineapple', 'apple', 'kiwi', 'grape'];
+    console.log(arr.indexOf('kiwi')); // 3
+    console.log(arr.indexOf('avocado')); // -1
+    console.log(arr.lastIndexOf('apple')); // 
+  }
+  </script>
+
+
+
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

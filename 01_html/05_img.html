@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>img</title>
+</head>
+<body>
+  <h1>img</h1>
+  <!-- 데체텍스트 : 이미지를 찾지 못한 경우 대신 표시할 텍스트, screen reader에 의한 이미지 설명-->
+  <img src="../sample/image/city1.PNG" width="400px" height="500px" alt="도시이미지">
+
+  <img src="https://weraveyou.com/wp-content/uploads/2021/04/Charlotte-.jpg" width="500px" alt="샬롯드비떼 이미지">
+  
+  <hr>
+  <!-- px 절대크기 화면너비와 관계없이 일정하게 보인다.-->
+  <div>
+    <img src="../sample/image/flower1.PNG" alt="꽃이미지1" width="150px">
+    <img src="../sample/image/flower2.PNG" alt="꽃이미지2" width="150px">
+    <img src="../sample/image/flower3.PNG" alt="꽃이미지3" width="150px">
+    <img src="../sample/image/flower4.PNG" alt="꽃이미지4" width="150px">
+    <img src="../sample/image/flower5.PNG" alt="꽃이미지5" width="150px">
+  </div>
+  <!-- % 상대크기 화면너비에 따라 크기가 달라진다. 100% 부모요소 대비 너비를 결정-->
+  <div>
+    <img src="../sample/image/flower1.PNG" alt="꽃이미지1" width="17%">
+    <img src="../sample/image/flower2.PNG" alt="꽃이미지2" width="17%">
+    <img src="../sample/image/flower3.PNG" alt="꽃이미지3" width="17%">
+    <img src="../sample/image/flower4.PNG" alt="꽃이미지4" width="17%">
+    <img src="../sample/image/flower5.PNG" alt="꽃이미지5" width="17%">
+  </div>
+
+  <hr>
+
+  <h2>이미지 정렬</h2>
+  <!-- div>img+p>lorem*2-->
+  <div>
+    <img src="../sample/image/river1.PNG" style="float:left; margin-right:10px;" width="200px" alt="">
+    <p><span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis sunt quam fuga voluptatem fugit. Quo iusto accusamus, adipisci quia eaque dolorum fugit reprehenderit repudiandae sit provident neque quos ut totam?</span><span>Nostrum illo ipsum eos tempore, impedit nam, aliquid quam ex, repudiandae incidunt veritatis cupiditate voluptatum? Sequi fuga quas enim molestias perspiciatis accusamus. Distinctio tempora voluptatem aut. Nulla error dicta unde.</span><span>Porro eos blanditiis illum praesentium suscipit nesciunt tempore veniam doloremque veritatis ad repellendus, dolor iusto amet, repellat beatae? Deserunt, est ea consequatur quaerat aliquid tempora deleniti ducimus reiciendis temporibus dicta.</span><span>Quos eligendi voluptatum necessitatibus culpa quam accusamus est fuga et vel labore possimus quod consectetur, exercitationem, corrupti delectus fugit unde fugiat asperiores quidem a similique saepe. Explicabo ipsam facere provident.</span><span>Voluptatibus, eligendi ullam id consequuntur, doloremque accusantium cupiditate dolorum in ex excepturi porro tempora nam architecto doloribus dignissimos corrupti provident quibusdam aperiam nostrum neque assumenda iusto libero quos aspernatur. Eveniet.</span></p>
+  </div>
+  <div>
+    <img src="../sample/image/river1.PNG" style="float:right; margin-right:10px;" width="200px" alt="">
+    <p><span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis sunt quam fuga voluptatem fugit. Quo iusto accusamus, adipisci quia eaque dolorum fugit reprehenderit repudiandae sit provident neque quos ut totam?</span><span>Nostrum illo ipsum eos tempore, impedit nam, aliquid quam ex, repudiandae incidunt veritatis cupiditate voluptatum? Sequi fuga quas enim molestias perspiciatis accusamus. Distinctio tempora voluptatem aut. Nulla error dicta unde.</span><span>Porro eos blanditiis illum praesentium suscipit nesciunt tempore veniam doloremque veritatis ad repellendus, dolor iusto amet, repellat beatae? Deserunt, est ea consequatur quaerat aliquid tempora deleniti ducimus reiciendis temporibus dicta.</span><span>Quos eligendi voluptatum necessitatibus culpa quam accusamus est fuga et vel labore possimus quod consectetur, exercitationem, corrupti delectus fugit unde fugiat asperiores quidem a similique saepe. Explicabo ipsam facere provident.</span><span>Voluptatibus, eligendi ullam id consequuntur, doloremque accusantium cupiditate dolorum in ex excepturi porro tempora nam architecto doloribus dignissimos corrupti provident quibusdam aperiam nostrum neque assumenda iusto libero quos aspernatur. Eveniet.</span></p>
+  </div>
+
+  <h2>이미지 링크</h2>
+  <a href="https://naver.com" target="_blank">
+    <img src="../sample/image/river2.PNG" width="500px" alt="강이미지">
+  </a>
+  <br>
+  <img src="../sample/image/river1.PNG" width="500px" alt="강이미지" usemap="#river-img-map">
+  <map name="river-img-map">
+    <area shape="rect" coords="0,0,500,155" href="https://naver.com" alt="네이버로 이동" target="_blank">
+    <area shape="rect" coords="0,155,500,310" href="https://google.com" alt="구글로 이동" target="_blank">
+  </map>
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

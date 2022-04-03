@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Object</title>
+</head>
+<body>
+  <h1>Object</h1>
+  <button onclick="test1();">객체생성 Literal</button>
+  <button onclick="test2();">객체생성 new</button>
+  <button onclick="test3();">method</button>
+  <button onclick="test4();">객체와 반복문</button>
+
+  <fieldset>
+    <legend>@실습문제 : game</legend>
+    <button onclick="startGame();">Start Game</button>
+    <button onclick="endGame();">End Game</button>
+  </fieldset>
+  <script>
+  const startGame = () => {
+    game.startup();
+  };
+  const endGame = () => {
+    game.shutdown();
+  };
+
+  /**
+   * @실습문제: game객체에 last-play라는 속성을 등록.
+   * last-play속성은 객체이고, start, dend, duration속성을 가지고 있다.(초기값은 모두 null)  
+   * - start game 버튼 : last-play의 start속성에 현재시각 기록(unix초)
+   * - end game 버튼 : 
+   *      last-play의 end속성에 현재시각 기록, 
+   *      게임시간 측정해서 duration기록(분), 
+   *      사용자알림(alert)
+   */ 
+  const game = {
+    title: "LOL",
+    langs: ["en", "ko", "jp"],
+    os: ["windows7", "windows10"],
+    startup(){
+      console.log(`${this.title}을 실행합니다...`);
+      this["last-play"].start = new Date();
+    },
+    shutdown(){
+      console.log(`${this.title}을 종료합니다...`);
+      this["last-play"].end = new Date(); // end속성값 기록
+      this["last-play"]["duration"] = 
+        Math.floor((this["last-play"]["end"] - this["last-play"]["start"]) / 1000 / 60); // duration기록
+      alert(`게임을 ${this["last-play"]["duration"]}분동안 하셨습니다.
+다음에 또 만나요...`);
+    },
+    "last-play": {
+      start: null,
+      end: null,
+      duration: null
+    }
+  };
+
+
+
+  const test4 = () => {
+    
+
+    // 배열에 for..in문을 사용하면 index가 변수에 담긴다.
+    for(let i in game.langs){
+      console.log(`i = ${i}, value = ${game.langs[i]}`);
+    }
+
+    // 객체에 for..in문을 사용하면 속성명이 변수에 담긴다.
+    for(let name in game){
+      console.log(`name = ${name}, value = ${game[name]}, type = ${typeof game[name]}`);
+    }
+  };
+
+
+  // const/let은 전역에 선언해도 window객체의 속성으로 등록되지 않는다.
+  var dog_name = '호빵';
+
+  const test3 = () => {
+    // 객체안에 정의된 함수를 method라고 한다.
+    const dog = {
+      dog_name: '구리구리',
+      eat: function(foodname){
+        // this용법3 : 객체 메소드안에서 this는 현재객체를 가리킨다. 객체안의 다른 속성은 this.속성명으로 참조한다.
+        console.log(`${this.dog_name}이/가 ${foodname}을 먹습니다.`);
+      },
+      run(){
+        console.log(`${this.dog_name}이/가 달립니다.`);
+      },
+      jump: () => {
+        // 화살표함수에는 this가 없고, 상위 scope의 this(window)를 참조
+        console.log(`${this.dog_name}이/가 뜁니다.`); // undefined이/가 뜁니다.
+      }
+    };
+
+    console.log(dog.dog_name);
+    console.log(dog.eat);
+
+    dog.eat('개껌');
+    dog['eat']('육포');
+
+    dog.run();
+
+    dog.jump();
+
+  };
+  
+  const test2 = () => {
+    const obj = new Object(); // {}
+    obj.name = '망고';
+    obj.price = 3000;
+    obj.origin = '필리핀';
+
+    console.log(obj);
+  };
+
+  /**
+   * (속성명과 속성값)으로 이루어진 요소를 관리하는 자료형
+   * - 속성명(key): 식별자(문자열)
+   * - 속성값(value): 모든 자료형 
+   */ 
+  const test1 = () => {
+    const user = {
+      id: "홍길동",
+      age: 33,
+      married: true,
+      hobby: ['당구', '농구', '배구'],
+      pet: {
+        name: '구리구리',
+        breed: '시고르자브종'
+      },
+      "father name": "홍당무",
+      "mother-name": "당근"
+    };
+
+    console.log(user);
+    // 1. dot-notation
+    console.log(user.id);
+    console.log(user.age);
+    console.log(user.hobby);
+    console.log(user.hobby[1]);
+    console.log(user.pet);
+    console.log(user.pet.name);
+    // console.log(user.father name);
+    // console.log(user.mother-name);
+
+    // 2. bracket-notation
+    console.log(user['id'])
+    console.log(user['age'])
+    console.log(user['married'])
+    console.log(user['hobby'])
+    console.log(user['hobby'][0], user['hobby'][1], user['hobby'][2])
+    console.log(user['pet'])
+    console.log(user['pet']['name'])
+    console.log(user['pet']['breed'])
+    console.log(user['father name'])
+    console.log(user['mother-name'])
+
+    // 동적으로 속성을 추가/제거
+    user.car = "소나타";
+
+    delete user['father name'];
+    console.log(user['father name'])
+
+  };
+  </script>
+
+
+
+
+
+
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation</title>
+</head>
+<body>
+  <h1>Animation</h1>
+  <!-- 
+    @keyframes 상태(keyframe) 모음. 여러태그에 의해 재사용될 수 있다.
+
+    animation-name
+    animation-delay
+    animation-duration
+    animation-direction
+    animation-iteration-count
+    anitmation-timing-function
+    animation-fill-mode
+  -->
+  <div class="box"></div>
+  <style>
+  .box {
+    width: 100px;
+    height: 100px;
+    background-color: indigo;
+    border: 1px solid #000;
+    margin: 100px;
+  }
+
+  body:hover .box {
+    animation-name: myanimation;
+    animation-duration: 3s;
+    animation-direction: reverse;
+    animation-iteration-count: 2;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes myanimation {
+    25% {
+      transform: translate(100px, 0px) rotate(180deg);
+    }
+
+    50% {
+      transform: translate(100px, 100px) rotate(360deg);
+      background-color: hotpink;
+    }
+
+    75% {
+      transform: translate(200px, 100px)  rotate(180deg);
+    }
+
+    100% {
+      transform: translate(200px, 200px) rotate(0deg);
+      background-color: yellow;
+    }
+  }
+  </style>
+  <hr>
+  <img src="../sample/image/hyunta.jpg" id="hyunta" alt="">
+  <style>
+  img#hyunta {
+    width: 200px;
+    margin-left: 200px;
+  }
+  body:hover img#hyunta {
+    animation-name: myanimation;
+    animation-duration: 6s;
+    animation-delay: 1s;
+  }
+  </style>
+
+
+
+
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

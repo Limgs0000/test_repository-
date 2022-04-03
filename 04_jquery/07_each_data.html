@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>each | data</title>
+  <script src="js/jquery-3.6.0.js"></script>
+</head>
+<body>
+  <h1>each | data</h1>
+  <!-- ul>li.foo{안녕$}*3 -->
+  <ul>
+    <li class="foo">안녕1</li>
+    <li class="foo">안녕2</li>
+    <li class="foo">안녕3</li>
+  </ul>
+  <button id="btn1">each</button>
+  <button id="btn2">$.each</button>
+  <button id="btn3">link생성하기</button>
+  
+  <div id="links"></div>
+  
+  <script>
+  /**
+   * @실습문제: 다음 데이터를 가지고 #links 하위에 a태그를 생성하세요.
+   */ 
+  $(btn3).click(e => {
+    // 초기화 - 모든 자식요소 제거
+    $(links).empty(); 
+
+    const arr = [
+      {name: "네이버", url: "https://naver.com"},
+      {name: "구글", url: "https://google.com"},
+      {name: "W3C", url: "https://w3c.com"},
+      {name: "w3school", url: "https://w3schools.com"},
+    ];
+
+    // $("<a></a>")
+    // attr
+    // text, html
+    $(arr).each((i, obj) => {
+      // console.log(i, obj);
+      const $a = $("<a></a>");
+      $a.attr("href", obj.url)
+        .text(obj.name);
+      $(links).append($a, '&nbsp;');
+    });
+
+  });
+
+  /**
+   * $.each(array, (index, item) => {})
+   * $.each(object, (k, v) => {})
+   */ 
+  $(btn2).click(e => {
+    const arr = ['a', 'b', 'c', 'd', 'e'];
+    $.each(arr, (i, ch) => {
+      console.log(i, ch);
+    });
+
+    const obj = {
+      name : '홍길동',
+      age : 33
+    };
+    $.each(obj, (k, v) => {
+      console.log(k, v);
+    });
+  });
+
+  /**
+   * $(selector).each((index, item) => {});
+   * 
+   * $(array).each((index, item) => {})
+   */ 
+  $(btn1).click(e => {
+    const arr = [];
+    $(".foo").each((index, item) => {
+      console.log(index, item);
+      arr.push($(item).text());
+    });
+    console.log(arr);
+
+    const names = ['홍길동', '홍난파', '홍진경'];
+    $(names).each((i, name) => {
+      console.log(i, name);
+    });
+    // vanilla js용 forEach
+    names.forEach((name, i) => {
+      console.log(name, i);
+    });
+
+  });
+  </script>
+
+  <ul id="pets">
+    <li data-breed="푸들" data-birth-day="20000505">구리구리</li>
+    <li data-breed="말티즈" data-birth-day="20100909">애득</li>
+  </ul>
+  <button id="btn5">data</button>
+  <script>
+  /**
+   * data속성을 통해서 태그객체에 data를 보관할 수 있다.
+   * 관련 api를 통해 getter/setter처리가 가능하다.
+   * - key : 대소문자 구분하지 않음. 단어사이는 -(hyphen)으로 연결
+   * - value
+   */ 
+  $(btn5).click(e => {
+    const $li = $("#pets li");
+    $li.each((i, li) => {
+      console.log(i, li);
+
+      // getter
+      const dataset = $(li).data();
+      console.log(dataset);
+      console.log($(li).data("breed"));
+      console.log($(li).data("birthDay"));
+      console.log($(li).data("birth-day")); // OK
+
+      // setter
+      // $(li).data("color", "white");
+      $(li).attr("data-color", "white");
+
+    });
+  });
+  </script>
+  
+</body>
+</html>

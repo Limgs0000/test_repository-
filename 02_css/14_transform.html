@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/prefixfree.min.js"></script>
+  <title>Transform</title>
+</head>
+<body>
+  <h1>Transform</h1>
+  <div class="wrapper">
+    <ul>
+      <li><img src="../sample/image/flower1.PNG" alt=""></li>
+      <li><img src="../sample/image/flower2.PNG" alt=""></li>
+      <li><img src="../sample/image/flower3.PNG" alt=""></li>
+    </ul>
+  </div>
+  <style>
+  .wrapper {
+    text-align: center;
+  }
+  .wrapper ul {
+    list-style-type: none;
+  }
+  img {
+    width: 200px;
+    margin: 30px;
+  }
+  .wrapper li:first-of-type img:hover {
+    /* transform: translateX(-50px); */
+    /* transform: translateY(-50px); */
+    transform: translate(50px, -50px);
+  }
+
+  .wrapper li:nth-of-type(2) img:hover {
+    /* transform: scale(1.5); */
+    transform: scale(.8);
+  }
+
+  /* vendor prefix */
+  /* css3 표준을 아직 적용하지 못한 브라우져를 위한 브라우져별 접두사 */
+
+  .wrapper li:last-of-type img:hover {
+    -webkit-transform: rotate(45deg); /* 크롬, 엣지, 사파리 */
+    -o-transform: rotate(45deg); /* 오페라 */
+    -moz-transform: rotate(45deg); /* 파이어폭스 */
+    -ms-transform: rotate(45deg); /* IE */
+    transform: rotate(45deg);
+  }
+  </style>
+
+
+
+
+  
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

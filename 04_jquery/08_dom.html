@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM제어</title>
+  <script src="js/jquery-3.6.0.js"></script>
+</head>
+<body>
+  <h1>DOM제어</h1>
+  <button id="btn1">html</button>
+  <button id="btn2">append</button>
+  <div class="area" id="area1"></div>
+  <script>
+  $(btn2).click(e => {
+    const p = document.createElement("p");
+    p.appendChild(document.createTextNode("Good Afternoon World"));
+
+    $(area1)
+      .append("<p>Hello World</p>") // html인 문자열
+      .append($("<p>Byebye World</p>")) // jquery객체
+      .append(p) // js node객체
+      .append($(btn2)); // 기존요소 이동
+  });
+
+  $(btn1).click(e => {
+    $(area1)
+      .html("<p>안녕</p>")
+      .html("<p>잘가</p>");
+  });
+  </script>
+
+  <h2>삽입1</h2>
+  <h3>기존요소기준</h3>
+  <button id="btn3">append</button>
+  <button id="btn4">prepend</button>
+  <button id="btn5">after</button>
+  <button id="btn6">before</button>
+  <!-- (h1#test$@3>span{A})*4 -->
+  <h1 id="test3"><span>A</span></h1>
+  <h1 id="test4"><span>A</span></h1>
+  <h1 id="test5"><span>A</span></h1>
+  <hr>
+  <h1 id="test6"><span>A</span></h1>
+  <script>
+  /**
+   * event data객체
+   * 이벤트별로 관리되는 객체. 
+   * event.data속성으로 접근이 가능
+   * 
+   * append 자식요소로 맨 뒤에 추가
+   */ 
+  $(btn3).click({code: 66}, e => {
+    const $add = $("<span></span>");
+    $add
+      .addClass("add")
+      .text(String.fromCharCode(e.data.code++));
+    $(test3)
+      .append($add)
+      .css("text-decoration", "underline")
+  });
+  /**
+   * prepend 자식요소로 맨앞에 추가
+   */ 
+  $(btn4).click({code: 66}, e => {
+    const $add = $("<span></span>");
+    $add
+      .addClass("add")
+      .text(String.fromCharCode(e.data.code++));
+    $(test4).prepend($add);
+  });
+
+  /**
+   * after 다음 형제요소로 추가
+   */ 
+  $(btn5).click({code: 66}, e => {
+    const $add = $("<span></span>");
+    $add
+      .addClass("add")
+      .text(String.fromCharCode(e.data.code++));
+    $(test5).after($add);
+  });
+ 
+  /**
+   * before 이전 형제요소로 추가
+   */ 
+  $(btn6).click({code: 66}, e => {
+    const $add = $("<span></span>");
+    $add
+      .addClass("add")
+      .text(String.fromCharCode(e.data.code++));
+    $(test6).before($add);
+  });
+  </script>
+
+  <h2>삽입2</h2>
+  <h3>추가될 요소기준</h3>
+  <button id="btn7">appendTo</button>
+  <button id="btn8">prependTo</button>
+  <button id="btn9">insrtAfter</button>
+  <button id="btn10">insertBefore</button>
+  <!-- (h1#test$@3>span{A})*4 -->
+  <h1 id="test7"><span>A</span></h1>
+  <h1 id="test8"><span>A</span></h1>
+  <h1 id="test9"><span>A</span></h1>
+  <hr>
+  <h1 id="test10"><span>A</span></h1>
+  <script>
+  /**
+   * $(B).appendTo($(A))
+   *  B를 기존요소 A의 자식으로 맨뒤에 추가
+   */ 
+  $(btn7).click({code: 66}, e => {
+    $("<span class='add'>" + String.fromCharCode(e.data.code++) + "</span>")
+      .appendTo($(test7))
+      .css("color", "red");
+  });
+
+  /**
+   * $(B).prependTo($(A))
+   *  B를 기존요소 A의 자식으로 맨앞에 추가
+   */ 
+  $(btn8).click({code: 66}, e => {
+    $("<span class='add'>" + String.fromCharCode(e.data.code++) + "</span>")
+      .prependTo($(test8));
+  });
+
+  /**
+   * $(B).insertAfter($(A))
+   *  B를 기존요소 A의 다음 형제로 추가
+   */ 
+   $(btn9).click({code: 66}, e => {
+    $("<span class='add'>" + String.fromCharCode(e.data.code++) + "</span>")
+      .insertAfter($(test9));
+  });
+
+  /**
+   * $(B).insertBefore($(A))
+   *  B를 기존요소 A의 이전 형제로 추가
+   */ 
+   $(btn10).click({code: 66}, e => {
+    $("<span class='add'>" + String.fromCharCode(e.data.code++) + "</span>")
+      .insertBefore($(test10));
+  });
+  </script>
+
+
+  <h2>clone | remove | detach | empty</h2>
+  <button id="btn11">clone</button>
+  <button id="btn12">remove</button>
+  <button id="btn13">detach</button>
+  <button id="btn14">empty</button>
+
+  <div class="original">
+    <div class="item"></div>
+  </div>
+  <div class="target"></div>
+  <style>
+  .original, .target {
+    border: 1px solid gray;
+    padding: 5px;
+    margin: 10px 0;
+    display: flex;
+  }
+  .item {
+    width: 100px;
+    height: 100px;
+    border: 1px solid gray;
+  }
+  .lime {
+    background-color: lime;
+  }
+  </style>
+  <script>
+  $(".item").hover(e => {
+    // mouseenter
+    $(e.target).addClass("lime");
+  }, e => {
+    // mouseleave
+    $(e.target).removeClass("lime");
+  });
+  /**
+   * clone(eventHandling:boolean) 
+   * 요소를 복제
+   * 이벤트핸들링복제여부 : 기본값 false
+   */ 
+  $(btn11).click(e => {
+    $(".original .item")
+      .clone(true)
+      .appendTo($(".target"));
+
+  });
+
+  /**
+   * remove
+   * 요소삭제. 삭제된 요소(이벤트핸들러 제거)를 반환. 
+   */ 
+  $(btn12).click(e => {
+    $(".original .item")
+      .remove()
+      .appendTo($(".target"));
+  });
+
+  /**
+   * detach
+   * 요소삭제. 삭제된 요소(이벤트핸들러 유지)를 반환
+   * 
+   */ 
+  $(btn13).click(e => {
+    $(".original .item")
+      .detach()
+      .appendTo($(".target"));
+  });
+
+  /**
+   * 모든 자식요소 제거
+   */ 
+  $(btn14).click(e => {
+    $(".original, .target").empty();
+  });
+  </script>
+
+
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Constructor Function | Inherit</title>
+</head>
+<body>
+  <h1>Constructor Function | Inherit</h1>
+  <button onclick="test1();">생성자함수</button>
+  <button onclick="test2();">상속 prototype</button>
+  <script>
+  const test2 = () => {
+    const books = [
+      new Book("매트릭스", 35000, 0.15),
+      new Book("오라클", 30000, 0.2),
+      new Book("네오의 하루", 20000),
+      new Book("So 스미스!", 15000, 0.3),
+    ];
+
+    books.forEach(book => console.log(book.toString()));
+
+  };
+
+  function Book(title, price, discountRate = 0.05){
+    this.title = title;
+    this.price = price;
+    this.discountRate = discountRate;
+  }
+
+
+  Book.prototype.getSalePrice = function(){
+    return this.price - (this.price * this.discountRate);
+  };
+  Book.prototype.toString = function(){
+    return `${this.title}은 ${this.getSalePrice()}원(정가:${this.price}원)입니다.`;
+  }
+
+
+
+  const test1 = () => {
+    // const duck = {
+    //   firstname: '이',
+    //   lastname: '오리',
+    //   say(){
+    //     return '꽥꽥';
+    //   },
+    //   toString(){
+    //     return `안녕하세요, ${this.firstname} ${this.lastname}입니다. ${this.say()}~`;
+    //   }
+    // };
+    const duck = new Duck('이', '오리');
+    console.log(duck);
+    console.log(duck["firstname"]);
+    console.log(duck["lastname"]);
+    console.log(duck["say"]());
+    console.log(`${duck}`);
+    console.log(`${duck.toString()}`);
+
+    const mc = new Duck('맥', '도날드');
+    console.log(mc);
+    console.log(mc.say());
+    console.log(mc.toString());
+    
+    // 주의 : 일반함수처럼 사용하지 말것.
+    const trump = Duck("트럼프", "도날드");
+    console.log(trump); // undefined
+    // console.log(trump.say()); // Uncaught TypeError: Cannot read properties of undefined (reading 'say')
+
+  };
+
+  /**
+   * 생성자함수
+   * - new 연산자와 함께 호출
+   * - this용법4 : 생성자함수안의 this는 현재객체를 가리킨다.
+   * - 관례상 대문자로 시작한다.
+   */ 
+  function Duck(firstname, lastname){
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.say = function(){
+      return "꽥꽥";
+    };
+    this.toString = function(){
+      return `안녕하세요, ${this.firstname} ${this.lastname}입니다. ${this.say()}~`;
+    };
+  }
+
+  </script>
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

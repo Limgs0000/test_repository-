@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destructuring Assignment</title>
+</head>
+<body>
+  <h1>Destructuring Assignment</h1>
+  <h2>구조분해 할당 | 비구조화 할당</h2>
+  <button onclick="test1();">Array</button>
+  <button onclick="test2();">Object</button>
+  <script>
+  /**
+   * 객체의 속성을 쉽게 변수에 옮겨담기
+   */ 
+  const test2 = () => {
+    const obj = {
+      a: 1,
+      b: 2,
+      c: 3
+    };
+
+    // obj속성중에 속성명이 a, b인 요소를 찾고, 변수 a, b에 속성값 할당.
+    const {a, b} = obj;
+    console.log(a); // 1
+    console.log(b); // 2
+
+    // obj속성중에 속성명이 a, b인 요소를 찾고, 변수 x, y에 속성값 할당.
+    const {a : x, b : y} = obj;
+    console.log(x); // 1
+    console.log(y); // 2
+
+    // 기본값
+    // const {a : k, m = 99} = obj; // m속성이 없다면, m변수에 99 기본값 할당
+    const {a : k, d : m = 99} = obj; // d속성이 없다면, m변수에 99기본값 할당
+    console.log(k); // 1
+    console.log(m); // undefined -> 99
+    // console.log(d); // Uncaught ReferenceError: d is not defined
+
+    // 함수호출 - 매개변수
+    const user = {
+      id: 'honggd',
+      name: {
+        firstname: "홍",
+        lastname: "길동"
+      },
+      age: 33,
+      sns: ['facebook', 'instagram', 'twitter']
+    };
+    const {id, name: {firstname, lastname}, age, sns: [sns1, sns2]} = user;
+    // console.log(id, typeof id);
+    // console.log(name, typeof name); // object
+    // console.log(age, typeof age);
+    // console.log(sns, typeof sns); // object
+    console.log(firstname, lastname); // 홍 길동
+    console.log(sns1, sns2);
+
+    sayName(user);
+    sayId(user);
+    saySns(user);
+
+    // 함수호출 - 리턴값
+    const {url, tel: {강남 : tel}, addr:[addr]} = getKHInfo();
+    console.log(url);
+    console.log(tel);
+    console.log(addr);
+
+  };
+
+  const getKHInfo = () => ({
+    url: "https://kh.iei.or.kr",
+    tel: {
+      "강남" : "070-123-1234",
+      "종로" : "070-234-2345",
+      "당산" : "070-345-3456"
+    },
+    addr: ["서울시 강남구", "서울시 종로구", "서울시 영등포구"],
+    
+  });
+  const sayName = ({name: {firstname, lastname}}) => console.log(firstname, lastname); // 홍 길동
+  const sayId = ({id}) => console.log(id);
+  const saySns = ({sns:[main_sns, sub_sns]}) => console.log(main_sns, sub_sns);
+
+
+  /**
+   * 
+   */ 
+  const test1 = () => {
+    const arr = [1, 2, 3, 4, 5];
+    // const [a, b, c, d, e] = arr;
+    // console.log(a, b, c, d, e);
+
+    // const [a, b] = arr; // 0 1번지 참조
+    const [a, , b] = arr; // 0 2번지 참조
+    console.log(a, b);
+
+    // 나머지연산자
+    const list = ['a', 'b', 'c', 'd', 'e'];
+    const [x, ...y] = list;
+    console.log(x);
+    console.log(y, typeof y);
+
+    // 변수자리교환
+    let name1 = '홍길동';
+    let name2 = '신사';
+    [name1, name2] = [name2, name1];
+    console.log(name1, name2);
+
+    // 기본값 처리
+    const [k, l, o = 33] = [11, 22];
+    console.log(k); // 11
+    console.log(l); // 22
+    console.log(o); // 33
+
+    // 리턴값 활용
+    // const result = foo();
+    // const n = result[0];
+    // const m = result[1];
+
+    const [n, m] = foo();
+    console.log(n);
+    console.log(m);
+
+    // 매개변수 활용
+    bar([n, m]);
+
+  };
+  const bar = ([x, y, z = 300]) => {
+    console.log(x); // 100
+    console.log(y); // 200
+    console.log(z); // 300
+  };
+  const foo = () => [100, 200];
+  </script>
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

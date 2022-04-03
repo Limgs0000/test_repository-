@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access DOM</title>
+</head>
+<body>
+  <h1>Access DOM</h1>
+  <!-- 
+    DOM Document Object Model 문서객체모델
+    현재페이지의 모든 태그는 계층구조 그대로 javascript객체(html태그객체)로 등록된다.
+  -->
+  <div id="area1" class="area">abc</div>
+  <div id="area2" class="area">def</div>
+  <div id="area3" class="area">ghi</div>
+
+  <input type="button" value="실행1" onclick="test1();">
+  <input type="button" value="실행2" onclick="test2();">
+  <script>
+  function test2(){
+    let areaArr = document.getElementsByClassName("area");
+    console.log(areaArr);
+    // areaArr[1].style.backgroundColor = 'springgreen';
+
+    let blue = 50;
+    for(let i = 0; i < areaArr.length; i++){
+      console.log(areaArr[i]);
+      areaArr[i].style.backgroundColor = "rgb(130, 220, " + blue + ")";
+      blue += 50;
+    }
+  }
+
+  function test1(){
+    // 문서객체모델(DOM)의 최상위객체 document
+    let elem = document.getElementById("area1");
+    console.log(elem);
+    console.dir(elem);
+    console.log(typeof(elem)); // object
+
+    elem.style.backgroundColor = 'hotpink';
+    elem.style.fontSize = "2em";
+    elem.style.color = "#fff";
+  }
+  </script>
+  
+  <hr>
+
+  <ul>
+    <li>html5</li>
+    <li>css3</li>
+    <li>ecma2015</li>
+  </ul>
+  <input type="button" value="실행3" onclick="test3();">
+  <script>
+  /**
+   * li태그명으로 요소객체 가져오기
+   * li태그안의 text를 적절한 속성을 이용해서 콘솔출력하세요.
+   */
+  function test3(){
+    let liArr = document.getElementsByTagName("li");
+
+    for(let i = 0; i < liArr.length; i++){
+      let text = liArr[i].innerHTML;
+      // console.log(liArr[i].innerHTML); // 자식태그 포함 리턴
+      // console.log(liArr[i].innerText);  // 자식태그를 제외하고 text부분만 리턴
+      // console.log(liArr[i].textContent); //  script/style태그하위의 text도 함께 리턴
+    }
+  }
+  </script>
+
+  <hr>
+
+  <fieldset>
+    <legend>취미</legend>
+    <!-- (input:checkbox[name=hobby]#hobby$[value]+label[for=hobby$])*3 -->
+    <input type="checkbox" name="hobby" id="hobby1" value="수영">
+    <label for="hobby1">수영</label>
+    <input type="checkbox" name="hobby" id="hobby2" value="볼링">
+    <label for="hobby2">볼링</label>
+    <input type="checkbox" name="hobby" id="hobby3" value="웹툰">
+    <label for="hobby3">웹툰</label>
+
+    <input type="checkbox" id="checkAll" onchange="test5();">
+    <label for="checkAll">모두선택</label>
+    
+    <br><br>
+    <input type="button" value="확인" onclick="test4();">
+  </fieldset>
+  <script>
+  function test5(){
+    // #checkAll의 현재 체크상태
+    let elem = document.getElementById("checkAll");
+    console.log(elem.checked);
+
+    let hobbies = document.getElementsByName("hobby");
+    for(let i = 0; i < hobbies.length; i++){
+      let hobby = hobbies[i];
+      // 좌항의 공간에 우항의 값(true | false)을 대입
+      hobby.checked = elem.checked;
+    }
+  }
+
+
+  function test4(){
+    let hobbies = document.getElementsByName("hobby");
+    console.log(hobbies);
+    
+    let result = "";
+    for(let i = 0; i < hobbies.length; i++){
+      let checkbox = hobbies[i];
+      if(checkbox.checked){
+        console.log(checkbox.value + " checked!");
+        result += checkbox.value + " ";
+      }
+    }
+
+    if(result == ""){
+      alert("취미를 선택하지 않았습니다.");
+    }
+    else {
+      alert("선택한 취미 : " + result);
+    }
+
+  }
+  </script>
+
+  <hr>
+  <!-- range input태그값이 변경될 때마다 #scoreResult에 값을 출력하세요 -->
+  <input type="range" name="score" id="score" class="score" min="0" max="100" onchange="test6();" value="50">
+  <span id="scoreResult"></span>
+  <script>
+  // 초기값 처리
+  // document.getElementById("scoreResult").innerHTML = document.getElementById("score").value;
+  scoreResult.innerHTML = score.value;
+
+  function test6(){
+    scoreResult.innerHTML = score.value;
+  }
+
+  /*
+  function test6(){
+    console.log("123");
+    // 1. 값 가져오기
+    let score = document.getElementById("score");
+    // let scoreArr = document.getElementsByName("score");
+    // let scoreArr = document.getElementsByClassName("score");
+    // let score = scoreArr[0];
+    // console.log(scoreArr, score);
+    console.log(score.value);
+
+    // 2. 값 설정하기
+    let scoreResult = document.getElementById("scoreResult");
+    scoreResult.innerHTML = score.value; // setter
+  }
+  */
+  </script>
+
+  <hr>
+
+  <div class="wrapper">
+    <p id="myp">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo architecto tenetur quos doloribus, enim laborum maxime deserunt dolor vel tempore dolores facilis suscipit vero quam laboriosam, accusamus ipsum. Nemo, nobis!</p>
+    <p class="foo" title="Quaerat">Quaerat, odio cupiditate omnis at amet aliquid officia laborum suscipit laudantium dignissimos iste, non nulla. Ducimus optio consequuntur repellat in totam perspiciatis reprehenderit nemo possimus, saepe deleniti corrupti blanditiis molestiae!</p>
+    <p class="foo bar">Earum beatae quia quo dignissimos ipsum provident repellendus esse! Itaque, quam laudantium, temporibus quibusdam aspernatur accusamus reprehenderit, necessitatibus excepturi hic nesciunt earum fuga eum tenetur accusantium reiciendis deserunt? Nihil, delectus?</p>
+  </div>
+
+  <input type="button" value="실행1" onclick="test7();">
+  <input type="button" value="실행2" onclick="test8();">
+  <script>
+  /**
+   * querySelectorAll
+   */ 
+  function test8(){
+    let pArr = document.querySelectorAll(".wrapper p"); 
+    console.log(pArr);
+
+    for(let i = 0; i < pArr.length; i++){
+      pArr[i].style.textDecoration = "underline";
+    }
+  }
+  
+  /**
+   * css selector 활용 : querySelector
+   * css선택자와 일치하는 첫번째 요소를 리턴
+   */ 
+  function test7(){
+    // let elem = document.querySelector(".wrapper p");
+
+    // let elem = document.querySelector(".wrapper p:nth-child(2)");
+    // let elem = document.querySelector(".wrapper p.foo");
+    // let elem = document.querySelector(".wrapper p[title]");
+
+    let elem = document.querySelector(".wrapper p.foo.bar");
+
+    console.log(elem);  
+    elem.style.backgroundColor = "lightblue";
+  }
+  </script>
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

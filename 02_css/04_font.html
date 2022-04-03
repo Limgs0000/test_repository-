@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Font</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Font</h1>
+  <!-- div.wrapper>p{안녕하세요 abcdefg ABCDEFG 1234567890}*3 -->
+  <div class="wrapper">
+    <p>안녕하세요 abcdefg ABCDEFG 1234567890</p>
+    <p>안녕하세요 abcdefg ABCDEFG 1234567890</p>
+    <p>안녕하세요 abcdefg ABCDEFG 1234567890</p>
+  </div>
+  <style>
+  :root  {
+    font-size: 30px;
+  }
+  .wrapper {
+    font-size : 20px;
+  }
+  .wrapper p:first-child {
+    /* 
+      왼쪽 : 특정폰트
+      오른쪽 : generic font를 지정 serif | sans-serif | cursive | monospaced
+    */
+    font-family: "홍길동날라차기체", "휴먼모음T", 'Times New Roman', Times, serif;
+    font-size : 32px; /* 절대수치 */
+  }
+  .wrapper p:nth-child(2) {
+    /* font-family: 'Noto Serif KR', serif; */
+    /* font-size : 2rem; */ /*상대수치 */
+    /* font-weight: bold; */
+    /* font-style: italic; */
+    /* font: font-style font-variant font-weight font-size/line-height font-family */
+    font: italic bold 2rem/50px 'Noto Serif KR', serif;
+  }
+  .wrapper p:last-child {
+    font-family: 'Nanum Pen Script', cursive;
+    font-size : 150%; /* 상대수치 */
+  }
+  </style>
+  
+  <hr>
+
+  <div class="container">
+    <p>안녕하세요~ 좋은아침입니다 😎</p>
+    <a href="#">링크링크링크</a>
+  </div>
+  <style>
+    .container > p {
+      /* 텍스트 컬러 */
+      /* color: red; */
+      /* color: #ff00aa; */
+      /* color: rgb(221, 44, 224); */
+      /* color: rgba(221, 44, 224, .5); */
+      color: rgb(221 44 224 / 90%);
+
+      /* text-decoration-line: underline; */
+      /* text-decoration-style: dashed; */
+      /* text-decoration-color: #000; */
+      /* text-decoration: underline #000 dashed; */
+
+      /* 가로offset 세로offset 번짐 color */
+      text-shadow: 3px 3px 7px gray;
+    }
+    .container > a {
+      text-decoration: none;
+    }
+    .container > a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+
+  <!-- div#bg>(span.shadow#shadow$+br)*4 -->
+  <div id="bg">
+    <span class="shadow" id="shadow1">HTML5</span><br>
+    <span class="shadow" id="shadow2">HTML5</span><br>
+    <span class="shadow" id="shadow3">HTML5</span><br>
+    <span class="shadow" id="shadow4">HTML5</span><br>
+  </div>
+  <style>
+  #bg {
+   background-color: #000; /* #abc -> #aabbcc */
+   padding: 50px;
+  }
+  .shadow {
+    font-size: 100px;
+    line-height: 100px;
+    font-weight: bold;
+    color: white;
+  }
+  #shadow1 {
+    color: orangered;
+		text-shadow: 5px 5px orange;
+  }
+  #shadow2 {
+    text-shadow: 0px 1px 20px #fff;
+  }  
+  #shadow3 {
+    text-shadow: 1px 1px 20px #6f0;
+  }
+  #shadow4 {
+    color: black;
+		text-shadow: 
+      0px 0px 4px #ccc, 
+      0px -5px 4px #ff3, 
+      2px -10px 6px #fd3,
+      -2px -15px 11px #f80, 
+      2px -19px 18px #f20;
+  }
+  </style>
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>  
+</body>
+</html>

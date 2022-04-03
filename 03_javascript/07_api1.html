@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API</title>
+</head>
+<body>
+  <h1>String</h1>
+  <button type="button" onclick="test1();">실행</button>
+  <button onclick="test2();">@실습문제</button>
+  <script>
+  /**
+   * 사용자에게 임의의 문자열을 입력받고, 거기에서 alphabet의 개수을 출력하세요.
+   * 
+   * - 안녕 : 0
+   * - abcdef : 6
+   * - 잘가라 bye 바이 bye : 6
+   */ 
+  function test2(){
+    const str = prompt("문자열을 입력하세요.");
+    
+    if(str == null){
+      alert("문자열을 입력하지 않았습니다.");
+      return;
+    }
+    
+    let cnt = 0;
+    for(let i = 0; i < str.length; i++){
+      let ch = str[i];
+      if(ch >= 'A' && ch <= 'Z')
+        cnt++;
+      else if(ch >= 'a' && ch <= 'z')
+        cnt++;
+    }
+
+    // String Template `texttexttext ${variable}`
+    // alert("입력하신 문자열 중에서 알파벳은 " + cnt + "개입니다.");
+    alert(`입력하신 문자열 중에서 알파벳은 ${cnt}개입니다.`);
+  }
+
+  /**
+   *  '' "" 작성된 literal은 String객체이다.
+   */ 
+  function test1(){
+    let str = "Apple Samsung Kiwi PineApple";
+    // console.log(str.length); // 18
+    // console.log(str.toUpperCase()); // APPLE SAMSUNG KIWI
+    // console.log(str.toLowerCase()); // apple samsung kiwi
+
+    // console.log(str.indexOf("Sam")); // 6
+    // console.log(str.indexOf("xxx")); // -1 
+
+    // console.log(str.charAt(6)); // S
+    // console.log(str[6]);
+
+    // console.log(str.replace("Apple", "Mango")); // 맨처음 Apple만 변경
+    // console.log(str.replace(/Apple/g, "Mango"));
+    // console.log(str.replaceAll("Apple", "Mango")); // ECMA2021에 추가
+    // console.log(str);
+
+    // csv처리
+    // let arr = str.split(" ");
+    // console.log(arr);
+    // for(let i = 0; i < arr.length; i++)
+    //   console.log(arr[i]);
+
+    // substring(startIndex, endIndex)
+    // substr(starIndex, length)
+    console.log(str.substring(6, 13)); // Samsung
+    console.log(str.substr(6, 7)); // Samsung
+    console.log(str.substring(6)); // Samsung Kiwi PineApple
+    console.log(str.substr(6)); // Samsung Kiwi PineApple
+  }
+  </script>
+
+  <h1>Math</h1>
+  <button onclick="test3();">실행</button> 
+  <button onclick="test4();">@실습문제</button>
+  <script>
+  /**
+   * ul#test하위의 100개 li태그에 1 ~ 100사이의 난수를 작성
+   * 그중에 짝수는 color값을 지정.
+   * 반복실행시 컬러는 초기화되어야 함.
+   */
+  function test4(){
+    const container = document.querySelector("div#test");
+    // 0.기존 자식요소제거
+    const prevChild = container.querySelector("ul");
+    prevChild != null && container.removeChild(prevChild);
+
+    // 태그를 동적으로 생성 : js object먼저 생성후, DOM에 추가
+    const ul = document.createElement("ul"); // <ul></ul>
+
+    for(let i = 0; i < 100; i++){
+      const li = document.createElement("li"); // <li></li>
+      let n = Math.floor(Math.random() * 100) + 1;
+      const textContent = document.createTextNode(n);
+      
+      li.append(textContent); // <li>34</li>
+      ul.append(li);
+    }
+
+    container.append(ul);
+  } 
+
+  // function test4(){
+  //   let liArr = document.querySelectorAll("#test li");
+  //   for(let i = 0; i < liArr.length; i++){
+  //     let li = liArr[i];
+  //     let n = Math.floor(Math.random() * 100) + 1;
+  //     li.innerHTML = n;
+
+  //     if(n % 2 == 0){
+  //       li.style.color = "hotpink";
+  //     }
+  //     else {
+  //       li.style.color = "";
+  //     }
+  //   }
+  // }
+
+  function test3(){
+    let n = 123.456;
+    console.log(Math.round(n * 100) / 100); // 123.46
+    console.log(Math.floor(n));
+    console.log(Math.ceil(n));
+
+    console.log(Math.random()); // 0.0이상 1.0미만의 난수 생성
+    console.log(Math.floor(Math.random() * 10) + 1); // 1 ~ 10사이의 정수형 난수
+
+    console.log(`숫자형(정수) 범위 : ${Number.MIN_SAFE_INTEGER} ~ ${Number.MAX_SAFE_INTEGER}`);
+  }
+  </script>
+  <div id="test"></div>
+
+
+  <h1>Date</h1>
+  <button onclick="test5();">실행</button>
+  <button onclick="test6();">시계실행</button>
+  <button onclick="test7();">시간차계산</button>
+  <h2 id="now"></h2>
+  <script>
+  function test7(){
+    let now = new Date();
+    let someday = new Date('2021/09/04');
+
+    let diff = someday - now; // 밀리초단위로 변화후 처리
+    // let diff = someday.getTime() - now.getTime();
+    console.log(`D-${Math.ceil(diff / 1000 / 60 / 60 / 24)}`);
+  }
+
+  function test6(){
+    let make2digit = function(n){
+      return n < 10 ? '0' + n : n;
+    };
+    let dt = new Date();
+    let hh = make2digit(dt.getHours());
+    let mm = make2digit(dt.getMinutes());
+    let ss = make2digit(dt.getSeconds());
+    let clock = `${hh}:${mm}:${ss}`;
+    now.innerHTML = clock;
+
+    setInterval(test6, 1000); // 1초후에 test6를 1초간격으로 계속 실행
+  }
+  
+  /**
+   * Date클래스를 통해 날짜/시각정보를 관리
+   */ 
+  function test5(){
+    // let dt = new Date();
+    let dt = new Date('2022/01/01 13:30');
+    now.innerHTML = dt;
+    console.dir(dt);
+
+    console.log(dt.getFullYear());
+    console.log(dt.getMonth()); // 0 ~ 11
+    console.log(dt.getDate());
+    console.log(dt.getDay()); // 일요일:0 ~ 토요일:6
+    const dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+    console.log(dayOfWeek[dt.getDay()]);
+
+    console.log(dt.getHours());
+    console.log(dt.getMinutes());
+    console.log(dt.getSeconds());
+  }
+  </script>
+  
+</body>
+</html>

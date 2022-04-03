@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IO</title>
+  <script>
+  // head태그안 script는 DOM에 접근시 load이벤트함수(init)를 이용해야 한다.
+
+  function init(){
+    // alert("모든 html태그 DOM등록 완료!");
+    console.log(p1.innerHTML); // <span>Hi, </span>innerHTML
+
+    // DOM을 모두 제거하고 새로쓰기 함수
+    document.write("<h1>Hello world</h1>");
+  }
+  // alert("123");
+
+  // console.log(p1.innerHTML); // Uncaught ReferenceError: p1 is not defined
+  </script>
+</head>
+<body onload="init();">
+  <h1>IO</h1>
+  <h2>confirm | prompt </h2>
+  <input type="button" value="confirm" onclick="test1();">
+  <input type="button" value="prompt" onclick="test2();">
+  <p id="username"></p>
+  <script>
+  /**
+   * 사용자에게 문자열 입력값을 받을 수 있다.
+   * 취소한 경우는 null이 리턴.
+   */ 
+  function test2(){
+    const name = prompt("이름을 입력하세요.");
+    console.log(name);
+    if(name == null || name == ""){
+      // 취소를 누른경우 || 입력값없이 확인을 누른경우
+      alert("이름을 입력하세요.");
+    }
+    else {
+      username.innerHTML = "<mark>" + name + "</mark>님, 안녕하세요.";
+    }
+  }
+  /**
+   * 사용자에게 예/아니오 처리를 확인함.
+   */ 
+  function test1(){
+    let bool = confirm("정말 삭제하시겠습니까?");
+    // console.log(bool); // 확인:true, 취소:false
+    if(bool){
+      // 확인 누른 경우 처리
+    }
+    else {
+      // 취소 누른 경우 처리
+    }
+  }
+  </script>
+
+  <h2>innerHTML | innerText | textContent | outerHTML</h2>
+  <div class="wrapper">
+    <p id="p1"><span>Hi, </span>innerHTML</p>
+    <p id="p2"><span style="display:none;">Hi, </span>innerText</p>
+    <p id="p3"><span style="display:none;">Hi, </span>textContent</p>
+    <p id="p4"><span>Hi, </span>outerHTML</p>
+  </div>
+  <input type="button" value="innerHTML" onclick="test3();">
+  <input type="button" value="innerText" onclick="test4();">
+  <input type="button" value="textContent" onclick="test5();">
+  <input type="button" value="outerHTML" onclick="test6();">
+  <script>
+  /**
+   * outerHTML
+   * - getter : 현재html태그를 포함해서 반환
+   * - setter : 현재html태그를 포함해서 대체
+   */ 
+  function test6(){
+    console.log(p4.outerHTML);
+    p4.outerHTML = "<mark>Hello</mark> outerHTML!!!!"; // p#p4가 제거됨.
+  }
+  /**
+   * textContent
+   * - getter : 자식HTML태그는 제외하고 텍스트만 반환. css에서 시각화되지 않은 요소 반환
+   * - setter : text로 처리(html태그 작동하지 않음)
+   */ 
+  function test5(){
+    console.log(p3.textContent);
+    p3.textContent = "<mark>Hello</mark> textContent!!!!";
+  }
+  /**
+   * innerText
+   * - getter : 자식HTML태그는 제외하고 텍스트만 반환
+   * - setter : text로 처리(html태그 작동하지 않음)
+   */ 
+  function test4(){
+    console.log(p2.innerText);
+    p2.innerText = "<mark>Hello</mark> innerText!!!!";
+  }
+
+  /**
+   * innerHTML
+   * - getter : 자식 HTML요소까지 반환
+   * - setter : html을 처리
+   */ 
+  function test3(){
+    console.log(p1.innerHTML);
+    p1.innerHTML = "<mark>Hello</mark> innerHTML!!!!";
+  }
+
+  
+  </script>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

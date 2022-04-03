@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebStorage</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script>
+  /**
+   * 현재 브라우져가 WebStorage api를 제공하는 지 체크
+   */ 
+  if(localStorage) {
+    console.log("WebStorage를 사용가능합니다.");
+  }
+  else {
+    console.log("WebStorage를 사용 불가한 브라우져입니다. 최신 브라우져를 이용하세요.");
+  }
+  </script>
+</head>
+<body onload="displayGuestbook();">
+  <h1>WebStorage</h1>
+  <h2>CRUD</h2>
+  <fieldset>
+    <legend>Local Storage</legend>
+    <input type="text" id="key" placeholder="key">
+    <input type="text" id="value" placeholder="value">
+    <hr>
+    <button id="btn1">저장</button>
+    <button id="btn2">삭제</button>
+    <button id="btn3">조회</button>
+    <button id="btn4">전체삭제</button>
+  </fieldset>
+  <script>
+  const $key = $(key);
+  const $value = $(value);
+
+  $(btn4).click(e => {
+    localStorage.clear();
+  });
+
+  $(btn3).click(e => {
+    // 유효성 검사
+    if($key.val() == '')
+      return;
+
+    // 값을 가져오기
+    // const v = localStorage[$key.val()];
+    const v = localStorage.getItem($key.val());
+    // console.log(v);
+  
+    if(v) {
+      $value.val(v);
+    }
+    else {
+      alert("해당 key값은 존재하지 않습니다.");
+      // 초기화
+      $key.val('');
+      $value.val('');
+    }
+
+  });
+
+  $(btn2).click(e => {
+    // 유효성 검사
+    if($key.val() == '')
+      return;
+
+    // 존재여부 확인
+    console.log(localStorage[$key.val()]);
+    if(localStorage[$key.val()]) {
+      // 존재할 경우 삭제
+      localStorage.removeItem($key.val());
+    }
+    else {
+      alert("해당 key값은 존재하지 않습니다.");
+    }
+    // 초기화
+    $key.val('');
+    $value.val('');
+  });
+
+  $(btn1).click(e => {
+    // 1. 유효성검사
+    if($key.val() == '' || $value.val() == '')
+      return;
+    // 2. 저장
+    // localStorage[$key.val()] = $value.val();
+    localStorage.setItem($key.val(), $value.val());
+    // 3. 초기화
+    $key.val('');
+    $value.val('');
+  });
+  </script>
+
+  <h2>객체저장</h2>
+  <button id="btn5">실행</button>
+  <script>
+  $(btn5).click(e => {
+    const user = {
+      id: "abcde",
+      phone: "01012341234",
+      married: false,
+      age: 30,
+      hobby: ['축구', '농구', '배구'], 
+      job: {
+        name: '개발자',
+        career: 10
+      }
+    };
+    console.log(user, typeof user);
+
+    const arr = ['a', 'b', 'c', [1, 2, 3, 4, 5]];
+
+    // json으로 변환
+    const str = JSON.stringify(user);
+    console.log(str, typeof str);
+
+    console.log(JSON.stringify(arr)); // ["a","b","c",[1,2,3,4,5]] string
+
+    // js object로 변환
+    const v = JSON.parse(str);
+    console.log(v, typeof v);
+
+  });
+  </script>
+
+  <h2>방명록</h2>
+  <form action="javascript:saveGuestbook();" name="guestbookFrm">
+    <table>
+      <tr>
+        <th><label for="username">이름</label></th>
+        <td><input type="text" id="username" placeholder="이름"></td>
+      </tr>
+      <tr>
+        <th><label for="content">내용</label></th>
+        <td><input type="text" id="content" placeholder="방명록을 작성하세요."></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center">
+          <input type="submit" value="저장">
+        </td>
+      </tr>
+    </table>
+  </form>
+  <table id="tb-guestbook">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Content</th>
+        <th>Datetime</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <style>
+  table {
+    border: 1px solid #000;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #000;
+    padding: 5px;
+  }
+  </style>
+  <script>
+  function Guestbook(username, content){
+    this.username = username;
+    this.content = content;
+    this.datetime = Date.now(); // 유닉스타임 저장
+  }
+
+  /**
+   * localStorage.guestbooks 테이블행으로 출력하기
+   * (최신순)
+   * 
+   * 1  홍길동    안녕하세요   2021/09/15 14:30
+   * 2  신사임당  짱           2021/09/15 14:00
+   * 
+   * 페이지 최초 로딩시에도 바로 방명록을 조회할것
+   */ 
+  const displayGuestbook = (guestbooks = JSON.parse(localStorage.getItem("guestbooks"))) => {
+    let $tbody = $("#tb-guestbook tbody");
+    $tbody.empty(); // tbody태그 초기화
+    console.log(guestbooks)
+    // ?. optional chaining : 이전객체가 undefined, null인 경우도 오류를 던지지 않는다.
+    // reverse : 배열뒤집기
+    $.each(guestbooks?.reverse(), function(idx, gb){
+      let datetime = new Date(gb.datetime);
+      let tr = `<tr>
+<td>${idx + 1}</td>
+<td>${gb.username}</td>
+<td>${gb.content}</td>
+<td>${datetimeFormatter(new Date(gb.datetime))}</td>
+</tr>`
+      $tbody.append(tr);
+    });
+  };
+
+  const datetimeFormatter = (dt) => {
+    const d = (n) => n.toString().padStart(2, 0);
+    return `${dt.getFullYear()}/${d(dt.getMonth() + 1)}/${d(dt.getDate())} ${d(dt.getHours())}:${d(dt.getMinutes())}`; 
+  }
+
+  const saveGuestbook = () => {
+    // 1. localStorage에 저장
+    const guestbook = new Guestbook(username.value, content.value);
+    const guestbooks = JSON.parse(localStorage.getItem('guestbooks')) || [];
+    guestbooks.push(guestbook);
+
+    // console.log(guestbooks); // js object
+    // console.log(JSON.stringify(guestbooks)); // json string
+    localStorage.setItem('guestbooks', JSON.stringify(guestbooks));
+
+    // 2. table#tb-guestbook 최신화
+    displayGuestbook(guestbooks);
+
+    // 3. 폼 초기화
+    document.guestbookFrm.reset();
+  };
+  
+  /**
+   * 유효성검사
+   */
+  $(document.guestbookFrm).submit(e => {
+    if($(username).val() == '' || $(content).val() == ''){
+      alert("이름과 내용을 작성해주세요.");
+      e.preventDefault();
+    }
+  });
+  </script>
+
+
+
+
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

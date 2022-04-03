@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Align</title>
+</head>
+<body>
+  <h1>Align</h1>
+  <h2>inline요소/text 정렬</h2>
+  <!-- 
+    1. 부모 block요소의 text-align속성을 통해 정렬한다.
+    2. span, img을 비롯해서 header태그/p태그의 내부 text도 정렬된다.
+  -->
+  <div class="wrapper">
+    <img src="../sample/image/hyunta.jpg" style="width: 100px;" alt="현타견">
+    <img src="../sample/image/flower1.PNG" style="height: 100px;" alt="꽃1">
+    <br>
+    <h3>Lorem ipsum</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium delectus iste pariatur cumque nostrum quibusdam esse ducimus quam illo dolor repellendus numquam velit deserunt, hic harum rem distinctio repellat? Ratione.</p>
+  </div>
+  <style>
+  .wrapper {
+    border: 1px solid gray;
+    text-align: right;
+  }
+  </style>
+
+  <h2>block요소의 정렬</h2>
+  <div class="box"></div>
+  <style>
+  div.box {
+    width: 300px;
+    height: 300px;
+    background-color: gray;
+    border: 3px solid #000;
+    
+    margin: 0 auto; 
+    /* 좌우정렬 0 -> top/bottom, auto -> left/right */
+
+    /* margin-left : auto;  */
+    /* 화면너비 전체에서 요소너비를 뺀값으로 지정 */
+  }
+  </style>
+
+  <h2>수직정렬</h2>
+  <div class="box">
+    <span>안녕</span>
+  </div>
+  <style>
+  /* .box {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+  } */
+  
+  /* 한줄 텍스트인 경우 */
+  .box {
+    text-align: center;
+    line-height: 300px;
+  }
+  
+  </style>
+
+
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

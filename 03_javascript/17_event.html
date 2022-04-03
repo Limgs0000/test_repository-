@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event</title>
+</head>
+<body>
+  <h1>Event</h1>
+  <h2>Event & Event Handler & Event Target</h2>
+  <button id="btn1" onclick="test1(event);">onclick</button>
+  <button id="btn2">onclick by id</button>
+  <button id="btn3">addEventListener</button>
+  <script>
+  const init = e => {
+    console.log("init@window.onload");
+    console.log(e);
+  };
+  const start = e => {
+    console.log("start@window.onload");
+  }
+  // window.onload = init;
+  // window.onload = start;
+
+  window.addEventListener("load", init);
+  window.addEventListener("load", start);
+
+  const test3 = function(e){
+    // event target : 이벤트 발생 객체
+    console.log(e.target);
+    // this용법5 : 이벤트핸들러함수안에서 this는 이벤트발생객체를 가리킨다. (화살표함수 예외)
+    console.log(this);
+    e.target.style.color = "pink";
+    this.disabled = "disabled";
+
+    console.log("#btn3를 클릭했습니다.", e.timeStamp);
+  };
+
+  btn3.addEventListener("click", test3);
+
+  const test2 = (e) => {
+    console.log("#btn2를 클릭했습니다.", e.timeStamp);
+  };
+  btn2.onclick = test2; // 함수자체 전달
+
+  /**
+   * html태그의 on이벤트속성을 사용
+   */ 
+  const test1 = (e) => {
+    // event handler | event listener
+    console.log(e); // 이벤트 객체
+  };
+  </script>
+
+  <fieldset>
+    <legend>회원가입</legend>
+    <input type="text" name="username" id="username" placeholder="username">
+  </fieldset>
+  <script>
+  /**
+   * key event
+   * 1. keydown
+   * 2. keypress
+   * 3. keyup
+   */ 
+  username.addEventListener("keyup", e => {
+    // console.log(e);
+    if(e.key == 'Enter' || e.keyCode == 13){
+      alert(e.target.value);
+      e.target.value = ''; // 초기화
+    }
+  });
+  </script>
+
+  <h2>폼 유효성 검사</h2>
+  <h3>Form Validation</h3>
+  <form action="" name="memberFrm">
+    <label for="userid">아이디</label>
+    <input type="text" id="userid" name="userid">
+    <span class="err err-userid">아이디는 4글자이상이어야 합니다.</span>
+    <br>
+    <label for="password">비밀번호</label>
+    <input type="password" name="password" id="password">
+    <span class="err err-password">비밀번호는 4글자이상이어야 합니다.</span>
+    <br>
+    <label for="password-check">비밀번호 확인</label>
+    <input type="password" id="password-check">
+    <span class="err err-password-check">비밀번호가 일치하지 않습니다.</span>
+    <br>
+    <input type="hidden" id="useridValid" value="0">
+    <input type="hidden" id="passwordValid" value="0">
+    <input type="hidden" id="passwordCheckValid" value="0">
+
+    <input type="submit" value="제출">
+    <input type="reset" value="초기화">
+  </form>
+  <style>
+  .err {
+    display: none;
+    color: red;
+  }
+  </style>
+  <script>
+  /**
+   * return false; 하면 제출이 되지 않는다.
+   */ 
+  document.memberFrm.onsubmit = e => {
+    if(!Number(useridValid.value))
+      return false;
+    if(!Number(passwordValid.value))
+      return false;
+    if(!Number(passwordCheckValid.value))
+      return false;
+  };
+
+
+  const pwdChk = document.querySelector("#password-check");
+  pwdChk.onblur = e => {
+    const pwVal = password.value;
+    const pwChkVal = e.target.value;
+
+    if(pwVal !== pwChkVal){
+      e.target.nextElementSibling.style.display = "inline";
+      // e.target.select();
+      passwordCheckValid.value = 0;
+    }
+    else {
+      e.target.nextElementSibling.style.display = "none";
+      passwordCheckValid.value = 1;
+    }
+
+  };
+
+  password.onblur = e => {
+    const pwVal = e.target.value;
+    if(pwVal.length < 4){
+      e.target.nextElementSibling.style.display = "inline";
+      // e.target.select();
+      passwordValid.value = 0;
+    }
+    else {
+      e.target.nextElementSibling.style.display = "none";
+      passwordValid.value = 1;
+    }
+  }; 
+
+  userid.onblur = e => {
+    const idVal = e.target.value;
+    if(idVal.length < 4){
+      e.target.nextElementSibling.style.display = "inline";
+      // e.target.focus();
+      useridValid.value = 0;
+    }
+    else {
+      e.target.nextElementSibling.style.display = "none";
+      useridValid.value = 1;
+    }
+  };
+  </script>
+
+  <h2>Event Propagation - Bubbling</h2>
+  <div class="foo foo1" onclick="test4(event, 'foo1');">
+    <div class="foo foo2" onclick="test4(event, 'foo2');">
+      <div class="foo foo3" onclick="test4(event, 'foo3');"></div>
+    </div>
+  </div>
+  <script>
+  const test4 = (e, name) => {
+    console.log(e.target); // .foo3
+    console.log(name);
+    // 전파방지
+    e.stopPropagation();
+  };
+  </script>
+
+  <style>
+  .foo {
+    border: 2px solid #000;
+    padding: 20px;
+  }
+  .foo1 {
+    background-color: orange;
+  }
+  .foo2 {
+    background-color: orangered;
+  }
+  .foo3 {
+    background-color: red;
+  }
+  </style>
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

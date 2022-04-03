@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traversing</title>
+  <script src="js/jquery-3.6.0.js"></script>
+  <style>
+  .wrap * {
+    border: 1px solid lightgray;
+    display: block;
+    padding: 5px;
+    margin: 15px;
+    color: gray;
+  }
+  .type {
+    width: 500px;
+  }
+  </style>
+</head>
+<body>
+  <h1>Traversing</h1>
+  <div class="wrap">
+		
+    <div class="type">div.type (great-grandparent)
+			<ul>ul (grandparent)
+				<li>li (direct parent)
+					<span>span1</span>
+				</li>
+				<li>li (direct parent)
+					<span>span2</span>
+				</li>
+			</ul>
+		</div>
+
+		<div class="type">div.type (grandparent)
+			<p>p (direct parent)
+				<span>span3</span>
+			</p>
+		</div>
+
+    <!-- @실습문제 -->
+		<div class="type test">
+			div.test
+			<ul>
+				ul1
+				<li>li1-1</li>
+				<li>
+					li1-2
+					<ul>
+						ul2
+						<li>li2-1</li>
+						<li>li2-2</li>
+						<li>
+							li2-3
+							<ul>
+								ul3
+								<li>
+									li3
+									<span id="fromMe">fromMe</span>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+  
+  <h2>부모방향</h2>
+  <button id="btn1">실행</button>
+  
+  <h2>자식방향</h2>
+  <button id="btn2">실행</button>
+  <button id="btn3">@실습문제</button>
+  
+  <h2>형제방향</h2>
+  <div class="container">
+    <p>p</p>
+    <span>span</span>
+    <h1>h1</h1>
+    <h2>h2</h2>
+    <h3>h3</h3>
+    <h4>h4</h4>
+    <p>p</p>
+  </div>
+  <button id="btn4">실행</button>
+
+  <script>
+  const current = {
+    color: "red",
+    border: "2px solid red"
+  };
+
+  /**
+   * siblings([selector]) 위치상관없이 모든 형제요소
+   * 
+   * next()               다음 형제요소 하나
+   * nextAll([selector])  다음 형제요소 모두
+   * nextUntil(selector)  지정한 선택자 이전 다음형제요소
+   * 
+   * prev()               이전 형제요소 하나
+   * prevAll([selector])  이전 형제요소 모두
+   * prevUntil(selector)  지정한 선택자 이전 이전형제요소
+   * 
+   */ 
+  $(btn4).click(e => {
+    const $h2 = $(".container h2");
+    console.log(
+      $h2
+        // .siblings()
+        // .siblings("h1, h3, h4")
+        // .next()
+        // .nextAll("p")
+        // .nextUntil("p")
+        // .prev()
+        // .prevAll()
+        .prevUntil("p")
+        .css(current)
+    );
+  });
+
+  /**
+   * @실습문제 : 
+   *  .wrap으로부터 li2-2를 선택해 css를 적용
+   *  span#fromMe으로부터 li2-2를 선택해 css를 적용
+   */ 
+  $(btn3).click(e => {
+    // console.log(
+    //   $(".wrap")
+    //     .find("ul")
+    //     .eq(2)
+    //     .children(":eq(1)")
+    //     .css(current)
+    // );
+
+    console.log(
+      $("#fromMe")
+        .parents("ul")
+        .eq(1)
+        .children(":eq(1)")
+        .css(current)
+    );
+  });
+
+  /**
+   * children([selector]) : 직계자식태그
+   * find(selector) : 모든 자식태그
+   */ 
+  $(btn2).click(e => {
+    const $wrap = $(".wrap");
+    console.log(
+      $wrap
+        // .children()
+        // .children("ul")
+        .find("span")
+        .css(current)
+    );
+
+  });
+
+
+  /**
+   * parent([selector]) : 직계부모태그
+   * paretns([selector]) : 모든 조상태그
+   * parentsUntil(selector) : 지정한 조상 전 모든 조상태그
+   */ 
+  $(btn1).click(e => {
+    const $span = $("span");
+
+    console.log(
+      $span
+        // .parent() 
+        // .parent("li") 
+        // .parents()
+        // .parents("div")
+        .parentsUntil(".wrap")
+        .css(current)
+    );
+
+  });
+  </script>
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

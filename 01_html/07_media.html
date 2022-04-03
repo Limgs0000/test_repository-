@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>media</title>
+</head>
+<body>
+  <h1>audio</h1>
+  <!--
+    constrols
+    autoplay
+    loop
+    muted
+    preload 재생전에 파일정보 로딩여부 auto | metadata | none
+  -->
+  <audio src="../sample/audio/major.mp3" controls muted></audio>
+
+  <audio controls>
+    <source src="../sample/audio/major.mp3" type="audio/mpeg">
+  </audio>
+
+  <h1>video</h1>
+  <!--
+    controls
+    autoplay
+    loop
+    muted
+    preload
+    poster 재생전 노출될 이미지
+    width
+    height
+  -->
+  <video src="../sample/video/small.mp4" poster="../sample/image/hyunta.jpg" width="500px" controls></video>
+  <video controls>
+    <source src="../sample/video/small.mp4" type="video/mp4">
+    <source src="../sample/video/small.webm" type="video/webm">
+    <source src="../sample/video/small.ogv" type="video/ogg">
+  </video>
+  
+  <iframe 
+    width="560" 
+    height="315" 
+    src="https://www.youtube.com/embed/mgtu7u9PKkI" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen></iframe>
+
+</body>
+</html>

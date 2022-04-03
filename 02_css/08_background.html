@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background</title>
+</head>
+<body>
+  <h1>Background</h1>
+  <div class="box"></div>
+  <style>
+  .box {
+    margin: auto;
+    width: 500px;
+    height: 800px;
+    padding: 30px;
+    border: 10px solid rgba(128, 128, 128, 0.541);
+    background-image: url('../sample/image/hyunta.jpg');
+    background-repeat:no-repeat;
+    background-position: center center;
+    /* background-size: contain;  */
+    /* x/y축으로 한쪽이 꽉찰때까지 확대/축소 */
+    background-size: cover;
+    /* 요소가 꽉찰때까지 확대/축소 */
+    background-attachment: fixed;
+    background-clip: content-box;
+  }
+  </style>
+  
+</body>
+</html>

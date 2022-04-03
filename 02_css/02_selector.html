@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selector</title>
+</head>
+<body>
+  <h1 class="foo">Selector</h1>
+  <!-- 디자인을 적용할 태그를 선택하는 문법 -->
+  <!-- ul>li#myli${테스트$}*5 -->
+  <ul>
+    <li id="myli1">테스트1</li>
+    <li id="myli2" class="foo">테스트2</li>
+    <li id="myli3" class="foo bar">테스트3</li>
+    <li id="myli4" class="foo">테스트4</li>
+    <li id="myli5">테스트5</li>
+  </ul>
+  <style>
+  /* css 유일한 주석 */
+  /* 태그 선택자 */
+  /* li, h1 {
+    color : red;
+  } */
+
+  /* 아이디 선택자 */
+  /* #myli2 {
+    background-color : aqua;
+  } */
+
+  /* 클래스 선택자 */
+  /* .foo {
+    font-size: 50px;
+  }
+  .foo.bar {
+    text-decoration: underline;  
+  } */
+
+  /* 모든 요소 선택자 */
+  /* * {
+    text-decoration: line-through;  
+  } */
+  </style>
+
+  <hr>
+
+  <div id="mydiv">
+    <h4>hello</h4>
+    <h4>world</h4>
+    <ul id="myul">
+      <li>html5</li>
+      <li>css3</li>
+    </ul>
+    <div id="otherdiv">
+      <h4>byebye</h4>
+      <ul id="otherul">
+        <li>java</li>
+        <li>python</li>
+      </ul>
+    </div>
+  </div>
+  <style>
+  /* 자식태그 */
+  /* #mydiv > h4 {
+    background-color: violet;
+  } */
+  /* 후손태그 */
+  /* #mydiv h4 {
+    background-color: violet;
+  } */
+  /* #mydiv > ul > li {
+    background-color: violet;
+  } */
+
+  #mydiv #otherul > li {
+    background-color: violet;
+  }
+  </style>
+  
+  <hr>
+
+  <!-- div.wrapper>(p>lorem)*5 -->
+  <div class="wrapper">
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni ex mollitia odit vel! Quod quam beatae praesentium dolor harum earum, saepe libero repellat architecto dicta quos animi, ut facere cumque?</p>
+    <p>Fugit minus iusto fuga praesentium perspiciatis qui numquam, alias veniam repellendus dolores sapiente possimus fugiat sit id sequi, ad cum suscipit laudantium at. Natus aliquid iusto deserunt corporis suscipit iste!</p>
+    <p id="myp">Dolorem est obcaecati quod quo ad expedita veniam repellat! Ad vel optio magni. Animi eos tenetur aliquam vel nobis cum nemo maiores dolore aut, architecto quam cumque quos, veniam consequatur.</p>
+    <p>Tempore laborum possimus corrupti! Obcaecati harum excepturi ratione sunt commodi ipsa, ex iusto consequuntur sequi saepe hic veniam, ut delectus corrupti nam ipsum nisi pariatur eligendi cum quas vitae. Esse!</p>
+    <p>Ut inventore similique blanditiis sit aliquam recusandae autem nam aspernatur a ipsum eaque id provident, officia hic porro eos consequuntur! Laudantium molestiae rem officiis voluptate optio fuga debitis ad commodi!</p>
+    <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium similique distinctio cumque, eos blanditiis tempora animi itaque quisquam sit quam! Facere minus expedita dolores hic repellat itaque voluptate eius veritatis?</span>
+  </div>
+  <style>
+  /* 형제 선택자 */
+  /* #myp + p {
+    background-color: coral;
+  } */
+
+  /* #myp ~ p { */
+  /* #myp ~ span { */
+  #myp ~ * {
+    background-color: coral;
+  }
+
+  </style>
+
+  <hr>
+
+  <fieldset>
+    <legend>회원가입폼</legend>
+    <input type="text"><br>
+    <input type="text" name="username" id="username"><br>
+    <input type="email" name="useremail"><br>
+    <input type="text" name="petname"><br>
+  </fieldset>
+  <style>
+  /* 속성선택자 */
+  /* [name] {
+    background-color: hotpink;
+  }   */
+  /* [name=username] {
+    background-color: hotpink;
+  } */
+  /* [name^=user] {
+    background-color: hotpink;
+  } */
+  /* [name$=name] {
+    background-color: hotpink;
+  } */
+  /* [name*=r] {
+    background-color: hotpink;
+  } */
+  </style>
+
+  <hr>
+  <div class="click box">Click Me!</div>
+  <div class="hover box">Hover Me!</div>
+  <style>
+  .box {
+    width: 100px;
+    height: 100px;
+    background-color: lightseagreen;
+    margin: 5px; /* 다른 요소와의 거리 */
+  }
+  /* 가상선택자 */
+  .click:active {
+    background-color: tomato;
+    color: white;
+  }
+  .hover:hover {
+    background-color: yellow;
+  }
+  </style>
+
+
+  <hr>
+  <a href="http://www.innerbody.com/htm/body.html">http://www.innerbody.com/htm/body.html</a>
+  <a href="https://www.w3schools.com">https://www.w3schools.com</a>
+  <style>
+  /* 방문전 */
+  a:link{color:aqua; text-decoration: none;} 
+  /* 방문후 */
+  a:visited{color:tomato;}
+  /* 호버시 */
+  a:hover{text-decoration: underline;}
+  /* 클릭시 */
+  a:active{color: yellowgreen;}
+  </style>
+
+  <fieldset>
+    <legend>폼</legend>
+    <!-- select[name=age]>option[value=$0]{$0대}*10 -->
+    <select name="age" id="">
+      <option value="10" disabled>10대</option>
+      <option value="20">20대</option>
+      <option value="30">30대</option>
+      <option value="40" selected>40대</option>
+      <option value="50">50대</option>
+      <option value="60">60대</option>
+      <option value="70">70대</option>
+      <option value="80">80대</option>
+      <option value="90">90대</option>
+      <option value="100">100대</option>
+    </select>
+
+    <br>
+
+    <input type="text" name="username" placeholder="아이디를 입력하세요.">
+
+    <br>
+
+    <!-- (input:checkbox[name=fruit][value]#fruit$+label[for=fruit$])*3 -->
+    <input type="checkbox" name="fruit" id="fruit1" value="바나나"><label for="fruit1">바나나</label>
+    <input type="checkbox" name="fruit" id="fruit2" value="포도"><label for="fruit2">포도</label>
+    <input type="checkbox" name="fruit" id="fruit3" value="키위"><label for="fruit3">키위</label>
+
+  </fieldset>
+  <style>
+  [name=age] > option:disabled {
+    color: red;
+  }
+  input:focus {
+    background-color: blue;
+    color: white;
+  }
+  input[type=checkbox]:checked {
+    width: 50px;
+    height: 50px;
+  }
+  /* fruit checkbox 체크시에 label글자도 함께 크기 키우기 */
+  input[type=checkbox]:checked + label {
+    font-size : 54px;
+  }
+  </style>
+
+  <hr>
+
+  <!-- div#test>p{테스트$}*5+span{테스트6} -->
+  <div id="test">
+    <span>테스트0</span>
+    <p>테스트1</p>
+    <p>테스트2</p>
+    <p>테스트3</p>
+    <p>테스트4</p>
+    <p>테스트5</p>
+    <span>테스트6</span>
+  </div>
+  <style>
+  /* #test > :first-child {
+    background-color: lightskyblue;
+  }
+
+  #test > :nth-child(2n){
+    background-color: lightsalmon;
+  }
+
+  #test > :last-child {
+    background-color: yellowgreen;
+  } */
+
+  #test > p:first-of-type {
+    background-color: lightskyblue;
+  }
+  #test > p:nth-of-type(2n) {
+    background-color: lightsalmon;
+  }
+  #test > p:last-of-type {
+    background-color: yellowgreen;
+  }
+  </style>
+
+  <hr>
+
+  <div class="wrapper">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quis accusamus facere sapiente, totam hic, officiis doloremque neque nesciunt omnis quia rerum. Excepturi ad, enim sunt voluptas cum vel est?</p>
+    <p>Quo tempore aperiam nobis ullam dicta accusamus quidem hic quam eaque? Nemo, dolor, cumque doloremque beatae iste totam sit architecto facilis iusto sapiente exercitationem molestiae sint, repudiandae laborum error laudantium.</p>
+    <p id="foooo">Omnis pariatur excepturi placeat dicta laborum rerum qui neque doloribus ea voluptates, repudiandae optio id, unde quas adipisci? Saepe beatae consectetur suscipit deleniti distinctio enim iure! Harum corporis magni quis?</p>
+    <p>Quisquam corrupti laudantium atque veniam porro optio, placeat voluptates, dolor ipsum repudiandae neque. Repellat ducimus cupiditate sint cum asperiores, accusantium doloremque quaerat expedita quam optio molestiae nemo minima beatae laboriosam!</p>
+    <p>Consequatur, ad molestias non delectus amet omnis eligendi mollitia quod assumenda dolores quisquam, id facere optio, fuga adipisci nobis perferendis nulla aut eaque! Dolorem culpa officiis nihil explicabo aspernatur magnam?</p>
+  </div>
+  <style>
+  /* 부정선택자 :not(selector) */
+  .wrapper > p:not(#foooo) {
+    text-decoration: underline;
+  }
+
+  /* 루트선택자 - 최상위태그 */
+  :root {
+    background-color: aqua;
+  }
+  </style>
+
+
+  
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

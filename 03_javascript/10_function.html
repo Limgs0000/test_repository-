@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Function</title>
+  </head>
+  <body>
+    <h1>Function</h1>
+    <button onclick="test1()">함수선언</button>
+    <button onclick="test2()">함수표현</button>
+    <button onclick="console.log(test3(111))">화살표함수</button>
+    <script>
+      /**
+       * 즉시실행함수 IIFE
+       * Immediately Invoked Function Expression
+       * 선언 - 호출
+       */
+      (function () {
+        console.log("iife1 called!");
+      })();
+
+      (function (a) {
+        console.log("iife2 called!");
+        console.log(`a = ${a}`);
+      })(100);
+
+      ((a) => {
+        console.log("iife3 called!");
+        console.log(`a = ${a}`);
+      })(100);
+
+      /**
+       * 함수선언식 Funcation Declaration
+       */
+      function test1() {
+        console.log("test1 called!");
+      }
+
+      /**
+       * 함수표현식 Function Expression
+       * 우항의 익명함수를 좌항의 변수에 대입(함수를 값으로써 처리)
+       */
+      const test2 = function () {
+        console.log("test2 called!");
+      };
+
+      /**
+       * 화살표함수 Arrow Function (ES6)
+       * 1. 매개변수가 하나인 경우, 매개변수의 소괄호 생략가능
+       * 2. 함수몸통에 리턴절 한줄이라면, {return} 생략가능
+       * 3. 함수몸통에 실행문이 한줄이라면, {} 생략가능
+       */
+      const test3 = (a) => console.log(a);
+      // const test3 = a => {
+      //   console.log(a);
+      // };
+
+      // const test3 = a => a * a;
+      // const test3 = a => {
+      //   return a * a;
+      // }
+
+      // const test3 = a => {
+      //   console.log("test3 called!");
+      //   console.log(`a = ${a}`);
+      // };
+    </script>
+
+    <h2>매개변수 Parameter | 매개인자 Argument</h2>
+    <button onclick="test4(1, 2, 3, 4, 5)">실행</button>
+    <button onclick="test5(1, 2, 3, 4, 5)">나머지연산자</button>
+    <button onclick="test6(this)">javascript</button>
+    <button onclick="test6(this)">jQuery</button>
+    <button onclick="test7(10, 11); test7(3, 4, 5); test7(102, 203, 333, 54);">
+      가산기
+    </button>
+    <script>
+      /**
+       * 매개인자의 총합을 출력하세요.
+       */
+      const test7 = (...numbers) => {
+        console.log(
+          numbers.reduce((sum, n) => {
+            console.log(`${sum}, ${n}`);
+            return sum + n;
+          })
+        );
+        console.log("-----------------------------");
+      };
+
+      // function test7(...numbers){
+      //   let sum = 0;
+      //   for(let i = 0; i < numbers.length; i++)
+      //     sum += numbers[i];
+
+      //   console.log(sum);
+      // }
+      /**
+       * 각태그의 내용이 출력되도록 test6를 작성하세요.
+       */
+      function test6(elem) {
+        alert(elem.innerHTML);
+      }
+
+      /**
+       * 나머지 연산자 Rest Parameter
+       */
+      function test5(...arr) {
+        console.log(arr);
+      }
+
+      /**
+       * 매개변수의 타입은 선언할때가 아닌 호출부의 값으로 결정된다.
+       */
+      function test4(a, b) {
+        console.log(a, typeof a);
+        console.log(b, typeof b);
+
+        // 숨은 참조변수 arguments(유사배열)
+        console.log(arguments);
+        for (let i = 0; i < arguments.length; i++)
+          console.log(`${i} : ${arguments[i]}`);
+      }
+    </script>
+
+    <h2>함수고급</h2>
+    <button onclick="test8();">매개인자</button>
+    <button onclick="test9();">리턴값</button>
+    <button onclick="test10(1)(999); test10(3)(7);">1000 / 10 출력</button>
+    <button onclick="test11(3)('안녕'); test11(10)('잘가');">
+      안녕 3번 / 잘가 10번 출력
+    </button>
+    <script>
+      const test11 = (n) => {
+        return (str) => {
+          for (let i = 0; i < n; i++) console.log(str);
+        };
+      };
+
+      const test10 = (a) => (b) => console.log(a + b);
+
+      // const test10 = (a) => {
+      //   return b => console.log(a + b);
+      // }
+
+      const test9 = () => {
+        const sayHi = funcMaker("Hi");
+        sayHi("길동"); // Hi, 길동~
+        sayHi("신사"); // Hi, 신사~
+
+        const sayGoodbye = funcMaker("Goodbye");
+        sayGoodbye();
+
+        funcMaker("밥 먹었니")("이순신");
+        console.log(funcMaker("밥 먹었니"));
+        (function (name = "홍길동") {
+          console.log(`밥 먹었니, ${name}~`);
+        })("이순신");
+      };
+
+      const funcMaker = (greeting) => {
+        return function (name = "홍길동") {
+          console.log(`${greeting}, ${name}~`);
+        };
+      };
+
+      /**
+       * 함수는 값으로 처리될 수 있다.
+       * - 변수에 할당할 수 있다.
+       * - 함수는 매개인자로 전달할 수 있다.
+       * - 전달된 함수는 매개변수에 할당할 수 있다.
+       */
+      const test8 = () => {
+        const foo = (ii) => {
+          console.log("foo called", ii);
+        };
+        funcExecuter(foo);
+      };
+
+      const funcExecuter = (f) => {
+        //console.log(f, typeof(f));
+        for (let i = 0; i < 10; i++) f(i);
+      };
+    </script>
+
+    <h2>함수스코프</h2>
+    <script>
+      //1
+      let z = 50;
+      (() => {
+        let z = 55;
+        z += 45;
+        console.log(`z = ${z}`); // 100
+      })();
+      console.log(`z = ${z}`); // 50
+
+      //2
+      let y = 99;
+      (() => {
+        let x = 100;
+        let y = 9;
+        z = 1;
+        console.log(`x + y + z = ${x + y + z}`); // 110
+      })();
+      console.log(`y + z = ${y + z}`); // 100
+      // console.log(`x + y + z = ${x + y + z}`); // Uncaught ReferenceError: x is not defined
+
+      //3
+      //전역 for문의 var로 선언된 내부변수 i
+      for (var i = 1; i <= 10; i++) {
+        console.log(i); // 1~10까지 출력
+      }
+      (() => {
+        console.log(`i = ${i}`); // 11
+      })();
+
+      //4
+      function foo() {
+        const num = 100;
+        return () => {
+          console.log(`num = ${num}`);
+        };
+      }
+      const num = 200;
+      const too = foo(); // closure함수 : 함수실행에 필요한 자유변수를 가진 함수
+      console.log(too, typeof too);
+      too(); // 100
+    </script>
+
+    <h2>Closure</h2>
+    <button onclick="test12('철수');">자유변수</button>
+    <button onclick="test13();">Closure</button>
+    <button onclick="test14(this);">카운터(전역) - 0</button>
+    <button onclick="test15(this);">카운터(클로져) - 0</button>
+
+    <div class="wrapper">
+      <input
+        type="number"
+        id="usernum"
+        placeholder="더할 수를 입력하세요."
+        onblur="test16(this);"
+        value="0"
+      />
+      <span id="usersum">0</span>
+    </div>
+
+    <script>
+      /**
+       * blur 포커스상태를 벗어나면 발생하는 이벤트
+       */
+      const makeAdder = () => {
+          let sum = 0;
+          return () => {
+            let num = parseInt(usernum.value);
+            sum += num;  
+            usersum.innerText = sum;
+            usernum.value = '';
+          };
+      };
+      const test16 = makeAdder();
+      // function makeAdder() {
+      //   var sum = 0;
+      //   return function (input) {
+      //     sum += Number(input.value);
+      //     input.value = ""; // 초기화
+      //     usersum.textContent = sum;
+      //   };
+      // }
+
+      const makeCounter = () => {
+        let cnt = 0;
+        return (btn) => (btn.innerText = `카운터(클로져) - ${++cnt}`);
+      };
+
+      const test15 = makeCounter();
+
+      let cnt = 0; // 전역변수
+      const test14 = (btn) => {
+        btn.innerText = `카운터(전역) - ${++cnt}`;
+      };
+
+      const test13 = () => {
+        const f = koo();
+        console.log(f, typeof f);
+        console.log(`num = ${num}`);
+        console.dir(f);
+        f();
+      };
+
+      /**
+       * closure함수 maker
+       *
+       * closure함수는 실행환경을 가진(자유변수를 가진) 외부에 닫혀있는 함수
+       */
+      const koo = () => {
+        const num = 99;
+        return () => {
+          console.log(num);
+        };
+      };
+
+      const greeting = "Hello";
+      /**
+       * 자유변수 : 지역범위에서 정의되지 않은 변수
+       */
+      const test12 = (name) => {
+        const word = "반갑습니다.";
+        console.log(`${greeting}, ${name}~ ${word}`); // Hello, 철수~ 반갑습니다.
+      };
+    </script>
+
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Variable</title>
+</head>
+<body>
+  <h1>Variable</h1>
+  <h2>var | let | const</h2>
+  <input type="button" value="실행" onclick="foo();">
+  <input type="button" value="block-scope확인" onclick="koo();">
+  <script>
+  // var  function-scope를 가진다.
+  // let | const block-scope를 가진다. (c-family언어)
+  
+  var a = 10; // 전역변수. 최상위객체 window의 속성
+  var b = 'abc';
+
+  var z = "철수";
+  if(true) {
+    var z = "영희";
+  }
+  console.log(z); // 영희
+
+  function foo(){
+    var a = 99; // 지역변수(함수안에서만 사용가능한 변수)
+    console.log(a);
+
+    console.log(window.a); // 전역변수 a
+    console.log(this.a); // this용법2 : 일반함수안의 this는 window전역객체를 가리킨다.
+
+    var x = 88;
+
+    if(true){
+      var x = 77;
+    }
+
+    console.log(x);
+
+    // console.log(b);
+  }
+
+  // console.log(x); // Uncaught ReferenceError: x is not defined
+
+
+  function koo(){
+    let name = "관희";
+    const NUM = 123;
+
+    if(true){
+      let name = "재희";
+      // let name = "철희"; // Uncaught SyntaxError: Identifier 'name' has already been declared
+      // NUM = 456; // Uncaught TypeError: Assignment to constant variable.
+    }
+
+    console.log(name);
+  }
+
+  </script>
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

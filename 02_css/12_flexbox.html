@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox</title>
+</head>
+<body>
+  <h1>Flexbox</h1>
+  <!-- 
+    부모요소(flex-container) display: flex | inline-flex
+      - flex-direction : row | column
+      - flex-wrap : wrap | nowrap
+      - justify-content(main axis) 
+          - flex-direction: row -> row(가로)
+          - flex-direction: column -> column(세로)
+      - align-items(cross axis)
+          - flex-direction: row -> column(세로)
+          - flex-direction: column -> row(가로)
+      - align-content(cross axiss) 여러줄일 경우(flex-wrap : wrap인 경우)
+
+    자식요소(flex-item) 
+      - flex-grow
+      - flex-shrink
+      - flex-basis
+      - order
+  -->
+  <!-- ul.flex>li{$}*3 -->
+  <ul class="flex">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <!-- li{$@4}*7 -->
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+  </ul>
+  <style>
+  .flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 2px solid gray;
+    list-style: none;
+    padding-left: 0;
+  }
+  .flex li {
+    /* width: 100px;
+    height: 100px; */
+    background-color: lightsalmon;
+    margin: 5px;
+  }
+  </style>
+
+  <ul class="flex flex1">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </ul>
+  <style>
+  .flex1 {
+    justify-content: space-between;
+  }
+  </style>
+
+  <ul class="flex flex2">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </ul>
+  <style>
+  .flex2 {
+    height: 50vh;
+    flex-direction: column;
+    align-content: stretch;
+  }
+  </style>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

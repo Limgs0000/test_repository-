@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casting</title>
+</head>
+<body>
+  <h1>Casting</h1>
+  <button onclick="test1();">산술연산</button>
+  <script>
+  
+  function test1(){
+    console.log(3 + "3", typeof(3 + "3")); // "33" string
+    console.log(3 + 3 + "3", typeof(3 + 3 + "3")); // "63" string
+
+    console.log(3 - "3", typeof(3 - "3")); // 0 'number'
+    console.log(3 * "3", typeof(3 * "3")); // 9 'number'
+    console.log(3 / "3", typeof(3 / "3")); // 1 'number'
+    console.log(3 % "3", typeof(3 % "3")); // 0 'number'
+
+    console.log(3 - "abc", typeof(3 - "abc")); // NaN 'number'
+
+    console.log(3 == "3", typeof(3 == "3")); // true 'boolean' ---> 3 == 3 자동형변환후 처리
+    console.log(3 != "3", typeof(3 != "3")); // false 'boolean' ---> 3 != 3 자동형변환후 처리
+
+    console.log(3 === "3", typeof(3 === "3")); // false 'boolean' 타입과 값이 모두 동일해야 true 반환
+    console.log(3 !== "3", typeof(3 !== "3")); // true 'boolean'  타입/값중 하나라도 달라야 true 반환
+  }
+  </script>
+
+  <h2>Number | parseInt() | parseFloat()</h2>
+  <button onclick="test2();">실행</button>
+  <br>
+  <br>
+  <input type="number" name="num" id="num1" placeholder="num1">
+  <br>
+  <input type="number" name="num" id="num2" placeholder="num2">
+  <br>
+  <input type="button" value="계산" onclick="test3();">
+
+  <script>
+  /**
+   * 사용자 입력값 #num1 #num2의 합을 경고창에 출력
+   */ 
+  function test3(){
+    if(num1.value == "" || num2.value == ""){
+      alert("숫자를 입력해주세요!");
+      return;
+    }
+    alert(`두 수의 합은 ${Number(num1.value) + Number(num2.value)} 입니다.`);
+  }
+
+  function test2(){
+    // const n = 123.456;
+    // const n = "123.456원";
+    const str = "$123.456";
+    // 정규표현식을 이용해 숫자가 아닌 문자제거
+    const n = str.replace(/[^0-9.]/g, ''); // 0~9 . 이 아닌 문자는 모두 ''로 변경
+
+    console.log(Number(n), typeof(Number(n))); // NaN 숫자가 아닌 문자가 있는 경우 NaN처리
+    console.log(parseInt(n), typeof(parseInt(n))); // 123 숫자가 아닌 문자전까지 정수 변환
+    console.log(parseFloat(n), typeof(parseFloat(n))); // 123.456 숫자가 아닌 문자전까지 실수 변환
+  }
+  </script>
+
+  <h2>boolean으로 형변환</h2>
+  <button onclick="test4();">실행</button>
+  <script>
+  /**
+   * javascript에서는 모든 값(변수)는 boolean형으로 평가될 수 있다.
+   * - 값이 있는 것은 true로 평가 100 -10 "안녕" 'false'
+   * - 값이 없는 것은 false로 평가 0 "" '' undefined null NaN
+   */ 
+  function test4(){
+    // const n = 10; // true
+    // const n = 0; // false
+    // const n = "안녕"; // true
+
+    // const n = ""; // false
+    // let n; // undefined -> false
+    // let n = null;
+    // let n = document.getElementById("nnnnnnnnnnnnnnn"); // null -> false
+    let n = 10 * "abc"; // NaN -> false
+
+    if(n) {
+      // console.log(`[${n}]은 참입니다.`);
+      console.log(`[${n}]은 참입니다.`);
+    }
+    else {
+      console.log(`[${n}]은 거짓입니다.`);
+    }
+
+    let footer = document.querySelector("footer");
+    footer || document.body.appendChild(footer = document.createElement("footer"));
+    footer.innerHTML = "<h2>점심 gogo!</h2>";
+
+  }
+  </script>
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

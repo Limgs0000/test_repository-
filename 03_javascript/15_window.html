@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Window</title>
+</head>
+<body onload="init();">
+  <h1>Window</h1>
+  <!--
+    window객체는 웹페이지(탭)내의 최상위객체.
+    페이지관리에 필요한 여러속성.
+    DOM document object model(document)
+    BOM browser object model(navigator, location, history, screen)
+
+  -->
+  <button onclick="test1();">open</button>
+  <button onclick="test2();">setTimeout</button>
+  <button onclick="test3();">setInterval</button>
+  <button onclick="clearInterval(this.value);" id="stopBtn">clearInterval</button>
+  <p id="clock"></p>
+  <script>
+  const test3 = () => {
+    // setInterval(callbackFunc, millis) : intervalID
+    // millis초이후에 callbackFunc함수를 millis초마다 실행.
+    const intervalID = setInterval(() => {
+      // console.log(Date.now()); // 현재시각의 unix time
+      clock.innerHTML = new Date();
+    }, 1000);
+    console.log(`intervalID = ${intervalID}`);
+    
+    stopBtn.value = intervalID;
+  };
+
+  const init = () => {
+    setTimeout(() => {
+      // const popup = open("", "", "width=300, height=300, top=200, left=200");
+      // popup.document.write("<h1>점심시간</h1>");
+    }, 3000);
+  };
+
+  const test2 = () => {
+    // setTimeout(callbackFunc, millis) : millis초이후 callbackFunc실행
+    setTimeout(() => {
+      alert("안녕하세요");
+    }, 3000);
+  };
+
+  const test1 = () => {
+    // open(url, name, spec) : 새탭의 window객체를 반환
+    // name = "_self" 현재탭에 index.html를 open
+    const newWindow = open("https://naver.com", "", "width=500, height=300, top=300, left=200");
+    console.log(newWindow);
+
+    // 5초후에 callback function을 실행
+    setTimeout(() => {
+      // newWindow.document.write("<h1>Hello World</h1>");
+      // newWindow.close();
+    }, 5000)
+
+  };
+  </script>
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

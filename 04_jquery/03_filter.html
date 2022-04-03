@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filter</title>
+  <script src="js/jquery-3.6.0.js"></script>
+</head>
+<body>
+  <h1>Filter</h1>
+  <div class="wrapper">
+    <p class="poo">안녕1</p>
+    <p class="poo">안녕2</p>
+    <p class="poo bar">안녕3</p>
+    <p class="poo bar">안녕4</p>
+    <p class="poo">안녕5</p>
+  </div>
+  <button id="btn1">실행</button>
+  <script>
+  // btn1.onclick = e => {};
+  // btn1.addEventListener('click', e => {});
+  // $("#btn1")
+  $(btn1).click(e => {
+    const $poo = $(".poo");
+    console.log($poo);
+    console.log($poo[0]); // 순수 js객체
+    console.log($poo.eq(0)); // jquery객체
+
+    $poo.first().css("color", "tomato"); // :first
+    $poo.last().css("color", "springgreen"); // :last
+    $poo.eq(2).css("color", "blue"); // :eq(2) 
+
+    $poo.filter(".bar").css("text-decoration", "underline"); // :has()
+    $poo.not(".bar").css("text-decoration", "line-through"); // :not()
+
+    // callback함수
+    // $poo.filter((index, elem) => {
+    //   console.log(index, elem);
+    //   return index % 2 == 0; // 짝수인덱스만 골라내기
+    // }).css("background-color", "lightgray");
+
+    // @실습문제 : 텍스트내용 숫자가 짝수인 것만 골라서 배경색 지정하기
+    // $(selector).text()
+    $poo.filter((i, p) => {
+      return $(p).text().replace(/\D/g, "") % 2 == 0;
+    }).css("background-color", "lightgray");
+
+  });
+  </script>
+
+
+
+
+
+
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
